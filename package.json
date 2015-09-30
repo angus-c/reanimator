@@ -1,0 +1,47 @@
+{
+  "name": "visualease",
+  "version": "0.0.1",
+  "description": "vizualize easing formuale",
+  "author": "Angus Croll",
+  "main": "lib/index.js",
+  "scripts": {
+    "compile": "webpack",
+    "prepublish": "npm run compile",
+    "test": "karma start --single-run",
+    "testc": "karma start --auto-watch"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angus-c/visualease.git"
+  },
+  "keywords": [
+    "easing",
+    "animation",
+    "react",
+    "vizualization"
+  ],
+  "devDependencies": {
+    "babel": "^5.1.13",
+    "babel-core": "^5.1.11",
+    "babel-loader": "^5.0.0",
+    "babel-runtime": "^5.1.13",
+    "eslint": "^1.0.0",
+    "karma": "^0.12.31",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.8",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-mocha": "^0.1.10",
+    "karma-sourcemap-loader": "^0.3.4",
+    "karma-webpack": "^1.5.0",
+    "webpack": "^1.8.9"
+  },
+  "dependencies": {
+    "babel-eslint": "^4.0.5",
+    "classnames": "^2.1.3",
+    "event-emitter": "^0.3.3",
+    "function-to-string": "^0.2.0",
+    "react": "^0.13.3",
+    "tween-functions": "^1.0.2"
+  }
+}
