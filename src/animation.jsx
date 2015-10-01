@@ -33,17 +33,21 @@ class Animation extends React.Component {
   }
 
   render() {
-    const linear = this.props.linear;
-
-    if (linear) {
-      return this._renderFormula();
-    } else {
-      return this._renderFormula();
-    }
+    return this._renderFormula();
   }
 
   _renderControl() {
-    return <div style={{position: "absolute", left: this.state.left+6, width: 4, height: 150, backgroundColor: 'red'}}></div>
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          left: this.state.left + 6,
+          width: 4,
+          height: 150,
+          backgroundColor: 'red'
+        }}>
+      </div>
+    );
   }
 
   _renderFormula() {
