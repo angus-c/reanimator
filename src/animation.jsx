@@ -1,7 +1,7 @@
 import React from 'react';
 import {Tweener} from './lib/tweenState';
 
-const DURATION = 100000;
+const DURATION = 10000;
 
 class Animation extends React.Component {
   constructor(props) {

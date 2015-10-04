@@ -9,7 +9,7 @@ import store from './store';
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.state = store.get();
+    this.state = {...store.get(), animationCount: 0};
     store.emitter.on('storeChange', data => this._update(data));
   }
 
@@ -19,18 +19,25 @@ class Container extends React.Component {
     const src = store.getSource(selectedEasing);
 
     return (
-      <div className="page">
-        <Visualization
-          easings = {easings}
-          selectedEasingName = {selectedEasingName}
-        />
-        <Formula
-          name={selectedEasingName}
-          formula={src}
-          syntaxError={selectedEasing.syntaxError}
-        />
+      <div>
+        <button onClick={e => this._replay(e)}>Replay</button>
+        <div key={this.state.animationCount} className="page">
+          <Visualization
+            easings = {easings}
+            selectedEasingName = {selectedEasingName}
+          />
+          <Formula
+            name={selectedEasingName}
+            formula={src}
+            syntaxError={selectedEasing.syntaxError}
+          />
+        </div>
       </div>
     );
+  }
+
+  _replay() {
+    this.setState({animationCount: this.state.animationCount + 1});
   }
 
   _update(data) {

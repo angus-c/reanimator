@@ -18,7 +18,6 @@ class Formula extends React.Component {
   }
 
   render() {
-    debugger;
     return (
       <textarea
         className="formulaBox"

@@ -44,7 +44,7 @@ const Tweener = {
   },
 
   tagForDeletion(tweenKey) {
-    this.tweenMap[tweenKey].pendingDelete = true;
+    this.tweenMap[tweenKey] && (this.tweenMap[tweenKey].pendingDelete = true);
   },
 
   getAnimation(tweenKey) {

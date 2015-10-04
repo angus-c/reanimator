@@ -1,7 +1,7 @@
 {
-  "name": "visualease",
+  "name": "easings-editor",
   "version": "0.0.1",
-  "description": "vizualize easing formuale",
+  "description": "edit and vizualize easing formuale",
   "author": "Angus Croll",
   "main": "lib/index.js",
   "scripts": {
