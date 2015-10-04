@@ -7,7 +7,7 @@ import Animation from './animation.jsx';
 
 class VisualizationItem extends React.Component {
   render() {
-    const {fn, selected} = this.props;
+    const {fn, selected, ...other} = this.props;
     const formulaButtonClass =
       classnames('formula', {'selected': selected});
     return (
@@ -21,7 +21,12 @@ class VisualizationItem extends React.Component {
             𝑓
           </button>
         </span>
-        <Animation className="animation" key={fn.name} easing={fn.value} />
+        <Animation
+          {...other}
+          className="animation"
+          easing={fn.value}
+          key={fn.name}
+        />
       </li>
     );
   }

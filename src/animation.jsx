@@ -1,8 +1,6 @@
 import React from 'react';
 import {Tweener} from './lib/tweenState';
 
-const DURATION = 10000;
-
 class Animation extends React.Component {
   constructor(props) {
     super(props);
@@ -13,11 +11,13 @@ class Animation extends React.Component {
   }
 
   static propTypes = {
+    duration: React.PropTypes.number,
     easing: React.PropTypes.func,
     linear: React.PropTypes.bool
   }
 
   static defaultProps = {
+    duration: 10000,
     linear: false
   }
 
@@ -27,8 +27,11 @@ class Animation extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.easing != this.props.easing) {
-      this._startAnimation(nextProps.easing);
+    if (
+      nextProps.easing != this.props.easing ||
+      nextProps.duration != this.props.duration
+    ) {
+      this._startAnimation(nextProps.easing, nextProps.duration);
     }
   }
 
@@ -58,14 +61,14 @@ class Animation extends React.Component {
     );
   }
 
-  _startAnimation(easing=this.props.easing) {
+  _startAnimation(easing=this.props.easing, duration=this.props.duration) {
     if (this.tweenKey) {
       Tweener.tagForDeletion(this.tweenKey);
     }
     this.tweenKey = Tweener.animate(this, 'left', {
       beginValue: this.state.left,
-      easing: easing,
-      duration: DURATION - (Date.now() - this.startTime),
+      easing,
+      duration: duration - (Date.now() - this.startTime),
       endValue: 1000
     });
   }

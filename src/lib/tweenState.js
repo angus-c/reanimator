@@ -43,6 +43,10 @@ const Tweener = {
     delete this.tweenMap[tweenKey];
   },
 
+  tagAllForDeletion(tweenKey) {
+    Object.keys(this.tweenMap).forEach(key => this.tagForDeletion(key));
+  },
+
   tagForDeletion(tweenKey) {
     this.tweenMap[tweenKey] && (this.tweenMap[tweenKey].pendingDelete = true);
   },

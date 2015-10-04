@@ -1,4 +1,4 @@
-
+import {Tweener} from './lib/tweenState';
 import React from 'react';
 
 import Formula from './formula.jsx';
@@ -9,7 +9,7 @@ import store from './store';
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...store.get(), animationCount: 0};
+    this.state = {...store.get(), animationCount: 0, duration: 10000};
     store.emitter.on('storeChange', data => this._update(data));
   }
 
@@ -19,11 +19,20 @@ class Container extends React.Component {
     const src = store.getSource(selectedEasing);
 
     return (
-      <div>
+      <div key={this.state.animationCount} >
         <button onClick={e => this._replay(e)}>Replay</button>
-        <div key={this.state.animationCount} className="page">
+        <input
+          min={1000}
+          max={100000}
+          ref="duration"
+          type="range"
+          onChange={(e) => this._durationChanged(e)}
+          value={this.state.duration}
+        />
+        <div className="page">
           <Visualization
             easings = {easings}
+            duration = {this.state.duration}
             selectedEasingName = {selectedEasingName}
           />
           <Formula
@@ -36,7 +45,12 @@ class Container extends React.Component {
     );
   }
 
+  _durationChanged(e) {
+    this.setState({duration: Number(e.target.value)});
+  }
+
   _replay() {
+    Tweener.tagAllForDeletion();
     this.setState({animationCount: this.state.animationCount + 1});
   }
 
