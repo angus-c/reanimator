@@ -1,8 +1,8 @@
-import {Tweener} from '../lib/tweenState';
+import {Tweener} from '../../lib/tweenState';
 import React from 'react';
 
-import Formula from './formula.jsx';
-import Visualization from './visualization.jsx';
+import Formula from '../formula/formula.jsx';
+import Visualization from '../visualization/visualization.jsx';
 
 import store from '../data/store';
 

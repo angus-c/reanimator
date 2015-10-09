@@ -1,6 +1,6 @@
 import React from 'react';
 
-import VisualizationItem from './visualizationItem.jsx';
+import VisualizationItem from '../visualizationItem/visualizationItem.jsx';
 
 class Visualization extends React.Component {
   render() {

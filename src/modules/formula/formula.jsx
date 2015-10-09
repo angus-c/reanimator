@@ -1,6 +1,6 @@
 import React from 'react';
 
-import store from '../data/store';
+import store from '../../data/store';
 
 class Formula extends React.Component {
   static propTypes = {

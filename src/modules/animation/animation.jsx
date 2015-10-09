@@ -1,5 +1,5 @@
 import React from 'react';
-import {Tweener} from '../lib/tweenState';
+import {Tweener} from '../../lib/tweenState';
 
 class Animation extends React.Component {
   constructor(props) {

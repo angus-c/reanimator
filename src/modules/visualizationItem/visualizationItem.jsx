@@ -1,9 +1,9 @@
 import classnames from 'classnames';
 import React from 'react';
 
-import store from '../data/store'
+import store from '../../data/store'
 
-import Animation from './animation.jsx';
+import Animation from '../animation/animation.jsx';
 
 class VisualizationItem extends React.Component {
   render() {
