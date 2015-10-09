@@ -2,6 +2,8 @@ import React from 'react';
 
 import store from '../../data/store';
 
+import './formula.css';
+
 class Formula extends React.Component {
   static propTypes = {
     formula: React.PropTypes.string,
@@ -20,7 +22,7 @@ class Formula extends React.Component {
   render() {
     return (
       <textarea
-        className="formulaBox"
+        className='formulaBox'
         style={{color: this.props.syntaxError ? 'red' : 'black'}}
         onChange={(e) => this.handleChange(e)}
         value={this.props.formula}

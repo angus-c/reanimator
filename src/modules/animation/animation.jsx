@@ -1,6 +1,8 @@
 import React from 'react';
 import {Tweener} from '../../lib/tweenState';
 
+import './animation.css';
+
 class Animation extends React.Component {
   constructor(props) {
     super(props);
@@ -63,7 +65,7 @@ class Animation extends React.Component {
       this.state.left = 1000 * this.props.easing(elapsed);
     }
     return (
-      <svg className="animation">
+      <svg className='animation'>
         <circle cx={this.state.left} cy="15" r="10" fill="blue" />
       </svg>
     );

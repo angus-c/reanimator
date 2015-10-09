@@ -4,7 +4,9 @@ import React from 'react';
 import Formula from '../formula/formula.jsx';
 import Visualization from '../visualization/visualization.jsx';
 
-import store from '../data/store';
+import store from '../../data/store';
+
+import './page.css';
 
 class Container extends React.Component {
   constructor(props) {
@@ -31,7 +33,7 @@ class Container extends React.Component {
           onChange={(e) => this._elapsedChanged(e)}
           value={this.state.elapsed}
         />
-        <div className="page">
+        <div className='page'>
           <Visualization
             easings = {easings}
             elapsed = {this.state.elapsed}

@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './src/modules/container.jsx',
+  entry: './src/modules/page/page.jsx',
   output: {
     path: 'dist',
     filename: 'index.js'
@@ -15,6 +15,10 @@ module.exports = {
           optional: ['runtime'],
           stage: 0
         }
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
       }
     ],
     watch: true

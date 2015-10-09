@@ -1,0 +1,11 @@
+.animationLabel {
+  flex: 1;
+  vertical-align: middle;
+}
+
+.visualizationItem {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  height: 2em
+}

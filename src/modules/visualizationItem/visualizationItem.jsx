@@ -5,6 +5,8 @@ import store from '../../data/store'
 
 import Animation from '../animation/animation.jsx';
 
+import './visualizationItem.css';
+
 class VisualizationItem extends React.Component {
   render() {
     const {elapsed, fn, selected, ...other} = this.props;
