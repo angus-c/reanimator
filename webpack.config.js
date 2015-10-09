@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './src/container.jsx',
+  entry: './src/modules/container.jsx',
   output: {
     path: 'dist',
     filename: 'index.js'

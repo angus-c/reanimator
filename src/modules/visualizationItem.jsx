@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import React from 'react';
 
-import store from './store'
+import store from '../data/store'
 
 import Animation from './animation.jsx';
 

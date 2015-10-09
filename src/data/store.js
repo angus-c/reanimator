@@ -1,8 +1,8 @@
 import EventEmitter from 'event-emitter';
 import functionString from 'function-to-string';
-import sanitize from './lib/sanitize'
-// import tweenFunctions from 'tween-functions';
-import tweenFunctions from './lib/simplifiedEasings';
+
+import sanitize from '../lib/sanitize'
+import tweenFunctions from '../lib/simplifiedEasings';
 
 // const {linear, easeInQuad, easeOutQuad, easeInOutElastic, easeOutBounce, easeInCirc} = tweenFunctions;
 const {linear, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic} = tweenFunctions;

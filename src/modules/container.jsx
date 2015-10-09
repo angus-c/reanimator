@@ -1,10 +1,10 @@
-import {Tweener} from './lib/tweenState';
+import {Tweener} from '../lib/tweenState';
 import React from 'react';
 
 import Formula from './formula.jsx';
 import Visualization from './visualization.jsx';
 
-import store from './store';
+import store from '../data/store';
 
 class Container extends React.Component {
   constructor(props) {
