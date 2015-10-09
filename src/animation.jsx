@@ -23,9 +23,11 @@ class Animation extends React.Component {
     linear: false
   }
 
-  componentDidMount() {
+  componentDidMount(props) {
     this.startTime = Date.now();
-    this._startAnimation();
+    if (this.props.elapsed < 0) {
+      this._startAnimation();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,20 +58,15 @@ class Animation extends React.Component {
   }
 
   _renderFormula() {
-    const { elapsed } = this.props.elapsed;
+    const { elapsed } = this.props;
     if (elapsed > -1) {
-      debugger;
-      this.state.left = this._getLeft(elapsed);
+      this.state.left = 1000 * this.props.easing(elapsed);
     }
     return (
       <svg className="animation">
         <circle cx={this.state.left} cy="15" r="10" fill="blue" />
       </svg>
     );
-  }
-
-  _getLeft(percentElapsed) {
-    return Tweener.getTweeningValue(this.tweenKey, percentElapsed);
   }
 
   _startAnimation(easing=this.props.easing, duration=this.props.duration) {

@@ -2,7 +2,7 @@
  * inspired by https://github.com/chenglou/react-tween-state
  */
 
-/*global requestAnimationFrame*/
+/* global requestAnimationFrame*/
 import easingTypes, {easeInOutQuad} from 'tween-functions';
 
 // TODO: we may want to support additive animation
@@ -55,12 +55,11 @@ const Tweener = {
     return this.tweenMap[tweenKey];
   },
 
-  getTweeningValue(tweenKey, elapsed) {
+  getTweeningValue(tweenKey) {
     const thisTween = this.tweenMap[tweenKey];
     const now = Date.now();
     const { beginValue, easing, duration, endValue } = thisTween.animation;
-    const percentElapased = elapsed || (now - thisTween.initTime) / duration;
-    const time = Math.min(percentElapased, 1)
+    const time = Math.min((now - thisTween.initTime) / duration, 1)
     return beginValue + (endValue - beginValue) * easing(time);
   },
 
