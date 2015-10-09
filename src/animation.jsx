@@ -13,11 +13,13 @@ class Animation extends React.Component {
   static propTypes = {
     duration: React.PropTypes.number,
     easing: React.PropTypes.func,
+    elapsed: React.PropTypes.number,
     linear: React.PropTypes.bool
   }
 
   static defaultProps = {
     duration: 10000,
+    elapsed: -1,
     linear: false
   }
 
@@ -54,11 +56,20 @@ class Animation extends React.Component {
   }
 
   _renderFormula() {
+    const { elapsed } = this.props.elapsed;
+    if (elapsed > -1) {
+      debugger;
+      this.state.left = this._getLeft(elapsed);
+    }
     return (
       <svg className="animation">
         <circle cx={this.state.left} cy="15" r="10" fill="blue" />
       </svg>
     );
+  }
+
+  _getLeft(percentElapsed) {
+    return Tweener.getTweeningValue(this.tweenKey, percentElapsed);
   }
 
   _startAnimation(easing=this.props.easing, duration=this.props.duration) {

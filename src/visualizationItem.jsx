@@ -7,7 +7,7 @@ import Animation from './animation.jsx';
 
 class VisualizationItem extends React.Component {
   render() {
-    const {fn, selected, ...other} = this.props;
+    const {elapsed, fn, selected, ...other} = this.props;
     const formulaButtonClass =
       classnames('formula', {'selected': selected});
     return (
@@ -25,6 +25,7 @@ class VisualizationItem extends React.Component {
           {...other}
           className="animation"
           easing={fn.value}
+          elapsed={elapsed}
           key={fn.name}
         />
       </li>

@@ -9,7 +9,7 @@ import store from './store';
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...store.get(), animationCount: 0, duration: 10000};
+    this.state = {...store.get(), animationCount: 0, duration: 10000, elapsed: -1};
     store.emitter.on('storeChange', data => this._update(data));
   }
 
@@ -22,16 +22,17 @@ class Container extends React.Component {
       <div key={this.state.animationCount} >
         <button onClick={e => this._replay(e)}>Replay</button>
         <input
-          min={1000}
-          max={100000}
+          min={0}
+          max={100}
           ref="duration"
           type="range"
           onChange={(e) => this._durationChanged(e)}
-          value={this.state.duration}
+          value={this.state.elapsed}
         />
         <div className="page">
           <Visualization
             easings = {easings}
+            elapsed = {this.state.elapsed}
             duration = {this.state.duration}
             selectedEasingName = {selectedEasingName}
           />
@@ -46,7 +47,8 @@ class Container extends React.Component {
   }
 
   _durationChanged(e) {
-    this.setState({duration: Number(e.target.value)});
+    debugger;
+    this.setState({elapsed: Number(e.target.value)});
   }
 
   _replay() {

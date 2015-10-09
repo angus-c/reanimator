@@ -55,11 +55,12 @@ const Tweener = {
     return this.tweenMap[tweenKey];
   },
 
-  getTweeningValue(tweenKey) {
+  getTweeningValue(tweenKey, elapsed) {
     const thisTween = this.tweenMap[tweenKey];
     const now = Date.now();
     const { beginValue, easing, duration, endValue } = thisTween.animation;
-    const time = Math.min((now - thisTween.initTime) / duration, 1)
+    const percentElapased = elapsed || (now - thisTween.initTime) / duration;
+    const time = Math.min(percentElapased, 1)
     return beginValue + (endValue - beginValue) * easing(time);
   },
 
