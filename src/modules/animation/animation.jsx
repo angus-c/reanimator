@@ -16,7 +16,8 @@ class Animation extends React.Component {
     duration: React.PropTypes.number,
     easing: React.PropTypes.func,
     elapsed: React.PropTypes.number,
-    linear: React.PropTypes.bool
+    linear: React.PropTypes.bool,
+    vizWidth: React.PropTypes.number
   }
 
   static defaultProps = {
@@ -62,7 +63,7 @@ class Animation extends React.Component {
   _renderFormula() {
     const { elapsed } = this.props;
     if (elapsed > -1) {
-      this.state.left = 1000 * this.props.easing(elapsed);
+      this.state.left = this.props.vizWidth * this.props.easing(elapsed);
     }
     return (
       <svg className='animation'>

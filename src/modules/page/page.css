@@ -2,3 +2,16 @@
   display: flex;
   flex-direction: column;
 }
+
+.controls {
+  display: flex;  
+  flex-direction: row;
+}
+
+.replay {
+  flex: 1;
+}
+
+.manual {
+  flex: 6;
+}

@@ -11,8 +11,12 @@ import './page.css';
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...store.get(), animationCount: 0, duration: 10000, elapsed: 0.7};
+    this.state = {...store.get(), animationCount: 0, duration: 10000, elapsed: 0};
     store.emitter.on('storeChange', data => this._update(data));
+  }
+
+  componentDidMount() {
+    this.controlWidth = React.findDOMNode(this.refs.manual).clientWidth;
   }
 
   render() {
@@ -21,37 +25,37 @@ class Container extends React.Component {
     const src = store.getSource(selectedEasing);
 
     return (
-      <div key={this.state.animationCount} >
-        <button onClick={e => this._replay(e)}>Replay</button>
-        <input
-          style={{marginLeft: 200, width: 1000}}
-          min={0}
-          max={1}
-          ref="duration"
-          step={0.01}
-          type="range"
-          onChange={(e) => this._elapsedChanged(e)}
-          value={this.state.elapsed}
-        />
-        <div className='page'>
-          <Visualization
-            easings = {easings}
-            elapsed = {this.state.elapsed}
-            duration = {this.state.duration}
-            selectedEasingName = {selectedEasingName}
-          />
-          <Formula
-            name={selectedEasingName}
-            formula={src}
-            syntaxError={selectedEasing.syntaxError}
+      <div className='page'>
+        <div className='controls' key={this.state.animationCount} >
+          <button className='replay' onClick={e => this._replay(e)}>Animate</button>
+          <input
+            className='manual'
+            min={0}
+            max={1}
+            ref='manual'
+            step={0.01}
+            type='range'
+            onChange={(e) => this._elapsedChanged(e)}
+            value={this.state.elapsed}
           />
         </div>
+        <Visualization
+          easings = {easings}
+          elapsed = {this.state.elapsed}
+          duration = {this.state.duration}
+          selectedEasingName = {selectedEasingName}
+          vizWidth = {this.controlWidth}
+        />
+        <Formula
+          name={selectedEasingName}
+          formula={src}
+          syntaxError={selectedEasing.syntaxError}
+        />
       </div>
     );
   }
 
   _elapsedChanged(e) {
-    debugger;
     this.setState({elapsed: Number(e.target.value)});
   }
 
