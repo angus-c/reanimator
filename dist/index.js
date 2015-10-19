@@ -91,7 +91,7 @@
 	    _classCallCheck(this, Container);
 
 	    _get(Object.getPrototypeOf(Container.prototype), 'constructor', this).call(this, props);
-	    this.state = _extends({}, _dataStore2['default'].get(), { animationCount: 0, duration: 10000, elapsed: 0 });
+	    this.state = _extends({}, _dataStore2['default'].get(), { animationCount: 0, duration: 10000, elasped: 0 });
 	    _dataStore2['default'].emitter.on('storeChange', function (data) {
 	      return _this._update(data);
 	    });
@@ -100,6 +100,7 @@
 	  _createClass(Container, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      debugger;
 	      this.controlWidth = _react2['default'].findDOMNode(this.refs.manual).clientWidth;
 	    }
 	  }, {
@@ -123,33 +124,33 @@
 	          _react2['default'].createElement(
 	            'button',
 	            { className: 'replay', onClick: function (e) {
-	                return _this2._replay(e);
+	                return _this2._play(e);
 	              } },
-	            'Animate'
+	            'Play >'
 	          ),
 	          _react2['default'].createElement('input', {
 	            className: 'manual',
-	            min: 0,
 	            max: 1,
-	            ref: 'manual',
-	            step: 0.01,
-	            type: 'range',
+	            min: 0,
 	            onChange: function (e) {
 	              return _this2._elapsedChanged(e);
 	            },
+	            ref: 'manual',
+	            step: 0.01,
+	            type: 'range',
 	            value: this.state.elapsed
 	          })
 	        ),
 	        _react2['default'].createElement(_visualizationVisualizationJsx2['default'], {
+	          duration: this.state.duration,
 	          easings: easings,
 	          elapsed: this.state.elapsed,
-	          duration: this.state.duration,
 	          selectedEasingName: selectedEasingName,
 	          vizWidth: this.controlWidth
 	        }),
 	        _react2['default'].createElement(_formulaFormulaJsx2['default'], {
-	          name: selectedEasingName,
 	          formula: src,
+	          name: selectedEasingName,
 	          syntaxError: selectedEasing.syntaxError
 	        })
 	      );
@@ -160,10 +161,11 @@
 	      this.setState({ elapsed: Number(e.target.value) });
 	    }
 	  }, {
-	    key: '_replay',
-	    value: function _replay() {
+	    key: '_play',
+	    value: function _play() {
+	      debugger;
 	      _libTweenState.Tweener.tagAllForDeletion();
-	      this.setState({ animationCount: this.state.animationCount + 1 });
+	      this.setState({ animationCount: this.state.animationCount + 1, elapsed: -1 });
 	    }
 	  }, {
 	    key: '_update',
@@ -26636,7 +26638,8 @@
 			return document.head || document.getElementsByTagName("head")[0];
 		}),
 		singletonElement = null,
-		singletonCounter = 0;
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
 
 	module.exports = function(list, options) {
 		if(false) {
@@ -26647,6 +26650,9 @@
 		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
 		// tags it will allow on a page
 		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
 
 		var styles = listToStyles(list);
 		addStylesToDom(styles, options);
@@ -26714,19 +26720,44 @@
 		return styles;
 	}
 
-	function createStyleElement() {
-		var styleElement = document.createElement("style");
+	function insertStyleElement(options, styleElement) {
 		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
 		styleElement.type = "text/css";
-		head.appendChild(styleElement);
+		insertStyleElement(options, styleElement);
 		return styleElement;
 	}
 
-	function createLinkElement() {
+	function createLinkElement(options) {
 		var linkElement = document.createElement("link");
-		var head = getHeadElement();
 		linkElement.rel = "stylesheet";
-		head.appendChild(linkElement);
+		insertStyleElement(options, linkElement);
 		return linkElement;
 	}
 
@@ -26735,7 +26766,7 @@
 
 		if (options.singleton) {
 			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement());
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
 			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
 			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
 		} else if(obj.sourceMap &&
@@ -26744,18 +26775,18 @@
 			typeof URL.revokeObjectURL === "function" &&
 			typeof Blob === "function" &&
 			typeof btoa === "function") {
-			styleElement = createLinkElement();
+			styleElement = createLinkElement(options);
 			update = updateLink.bind(null, styleElement);
 			remove = function() {
-				styleElement.parentNode.removeChild(styleElement);
+				removeStyleElement(styleElement);
 				if(styleElement.href)
 					URL.revokeObjectURL(styleElement.href);
 			};
 		} else {
-			styleElement = createStyleElement();
+			styleElement = createStyleElement(options);
 			update = applyToTag.bind(null, styleElement);
 			remove = function() {
-				styleElement.parentNode.removeChild(styleElement);
+				removeStyleElement(styleElement);
 			};
 		}
 
@@ -27017,7 +27048,6 @@
 	        _react2['default'].createElement(_animationAnimationJsx2['default'], _extends({}, other, {
 	          className: 'animation',
 	          easing: fn.value,
-	          elapsed: elapsed,
 	          key: fn.name
 	        }))
 	      );
@@ -27125,7 +27155,7 @@
 
 	    _get(Object.getPrototypeOf(Animation.prototype), 'constructor', this).call(this, props);
 	    this.state = {
-	      left: 100,
+	      left: 0,
 	      startTime: -1
 	    };
 	  }
@@ -27150,18 +27180,22 @@
 	    value: function render() {
 	      return this._renderFormula();
 	    }
-	  }, {
-	    key: '_renderControl',
-	    value: function _renderControl() {
-	      return _react2['default'].createElement('div', {
-	        style: {
-	          position: 'absolute',
-	          left: this.state.left + 6,
-	          width: 4,
-	          height: 150,
-	          backgroundColor: 'red'
-	        } });
-	    }
+
+	    // vertical needle representing linear animation path
+	    // _renderControl() {
+	    //   return (
+	    //     <div
+	    //       style={{
+	    //         position: 'absolute',
+	    //         left: this.state.left,
+	    //         width: 4,
+	    //         height: 150,
+	    //         backgroundColor: 'red'
+	    //       }}>
+	    //     </div>
+	    //   );
+	    // }
+
 	  }, {
 	    key: '_renderFormula',
 	    value: function _renderFormula() {
@@ -27189,7 +27223,7 @@
 	        beginValue: this.state.left,
 	        easing: easing,
 	        duration: duration - (Date.now() - this.startTime),
-	        endValue: 1000
+	        endValue: this.props.vizWidth
 	      });
 	    }
 	  }], [{

@@ -11,11 +11,12 @@ import './page.css';
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...store.get(), animationCount: 0, duration: 10000, elapsed: 0};
+    this.state = {...store.get(), animationCount: 0, duration: 10000, elasped: 0};
     store.emitter.on('storeChange', data => this._update(data));
   }
 
   componentDidMount() {
+    debugger;
     this.controlWidth = React.findDOMNode(this.refs.manual).clientWidth;
   }
 
@@ -27,28 +28,28 @@ class Container extends React.Component {
     return (
       <div className='page'>
         <div className='controls' key={this.state.animationCount} >
-          <button className='replay' onClick={e => this._replay(e)}>Animate</button>
+          <button className='replay' onClick={e => this._play(e)}>Play ></button>
           <input
             className='manual'
-            min={0}
             max={1}
+            min={0}
+            onChange={(e) => this._elapsedChanged(e)}
             ref='manual'
             step={0.01}
             type='range'
-            onChange={(e) => this._elapsedChanged(e)}
             value={this.state.elapsed}
           />
         </div>
         <Visualization
+          duration = {this.state.duration}
           easings = {easings}
           elapsed = {this.state.elapsed}
-          duration = {this.state.duration}
           selectedEasingName = {selectedEasingName}
           vizWidth = {this.controlWidth}
         />
         <Formula
-          name={selectedEasingName}
           formula={src}
+          name={selectedEasingName}
           syntaxError={selectedEasing.syntaxError}
         />
       </div>
@@ -59,9 +60,10 @@ class Container extends React.Component {
     this.setState({elapsed: Number(e.target.value)});
   }
 
-  _replay() {
+  _play() {
+    debugger;
     Tweener.tagAllForDeletion();
-    this.setState({animationCount: this.state.animationCount + 1});
+    this.setState({animationCount: this.state.animationCount + 1, elapsed: -1});
   }
 
   _update(data) {

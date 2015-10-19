@@ -7,7 +7,7 @@ class Animation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      left: 100,
+      left: 0,
       startTime: -1
     }
   }
@@ -46,19 +46,20 @@ class Animation extends React.Component {
     return this._renderFormula();
   }
 
-  _renderControl() {
-    return (
-      <div
-        style={{
-          position: 'absolute',
-          left: this.state.left + 6,
-          width: 4,
-          height: 150,
-          backgroundColor: 'red'
-        }}>
-      </div>
-    );
-  }
+  // vertical needle representing linear animation path
+  // _renderControl() {
+  //   return (
+  //     <div
+  //       style={{
+  //         position: 'absolute',
+  //         left: this.state.left,
+  //         width: 4,
+  //         height: 150,
+  //         backgroundColor: 'red'
+  //       }}>
+  //     </div>
+  //   );
+  // }
 
   _renderFormula() {
     const { elapsed } = this.props;
@@ -72,7 +73,7 @@ class Animation extends React.Component {
     );
   }
 
-  _startAnimation(easing=this.props.easing, duration=this.props.duration) {
+  _startAnimation(easing = this.props.easing, duration = this.props.duration) {
     if (this.tweenKey) {
       Tweener.tagForDeletion(this.tweenKey);
     }
@@ -80,7 +81,7 @@ class Animation extends React.Component {
       beginValue: this.state.left,
       easing,
       duration: duration - (Date.now() - this.startTime),
-      endValue: 1000
+      endValue: this.props.vizWidth
     });
   }
 }

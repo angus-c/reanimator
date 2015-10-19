@@ -27,7 +27,6 @@ class VisualizationItem extends React.Component {
           {...other}
           className="animation"
           easing={fn.value}
-          elapsed={elapsed}
           key={fn.name}
         />
       </li>
