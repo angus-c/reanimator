@@ -4,14 +4,18 @@
 }
 
 .controls {
-  display: flex;  
+  display: flex;
   flex-direction: row;
 }
 
-.replay {
+.buffer {
   flex: 1;
 }
 
+.replay {
+  flex: 4;
+}
+
 .manual {
-  flex: 6;
+  flex: 18;
 }

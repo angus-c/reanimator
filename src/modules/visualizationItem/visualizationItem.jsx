@@ -9,11 +9,11 @@ import './visualizationItem.css';
 
 class VisualizationItem extends React.Component {
   render() {
-    const {elapsed, fn, selected, ...other} = this.props;
+    const {fn, selected, ...other} = this.props;
     const formulaButtonClass =
       classnames('formula', {'selected': selected});
     return (
-      <li key={fn.name} className="visualizationItem">
+      <li className="visualizationItem" key={fn.name}>
         <span className="animationLabel">
           {fn.name}
           <button
@@ -23,12 +23,14 @@ class VisualizationItem extends React.Component {
             𝑓
           </button>
         </span>
+        <div className='buffer'></div>
         <Animation
           {...other}
           className="animation"
           easing={fn.value}
           key={fn.name}
         />
+        <div className='buffer'></div>
       </li>
     );
   }

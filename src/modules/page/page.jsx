@@ -15,29 +15,26 @@ class Container extends React.Component {
     store.emitter.on('storeChange', data => this._update(data));
   }
 
-  componentDidMount() {
-    this.setState({controlWidth: React.findDOMNode(this.refs.manual).clientWidth});
-  }
-
   render() {
     const {easings, selectedEasingName} = this.state;
     const selectedEasing = easings[selectedEasingName];
     const src = store.getSource(selectedEasing);
 
     return (
-      <div className='page'>
-        <div className='controls' key={this.state.animationCount} >
+      <div className='page' key={this.state.animationCount}>
+        <div className='controls'>
           <button className='replay' onClick={e => this._play(e)}>Play ></button>
+          <div className='buffer'></div>
           <input
             className='manual'
             max={1}
             min={0}
             onChange={(e) => this._elapsedChanged(e)}
-            ref='manual'
             step={0.01}
             type='range'
             value={this.state.elapsed}
           />
+          <div className='buffer'></div>
         </div>
         <Visualization
           duration = {this.state.duration}
@@ -56,6 +53,7 @@ class Container extends React.Component {
   }
 
   _elapsedChanged(e) {
+    Tweener.tagAllForDeletion();
     this.setState({elapsed: Number(e.target.value)});
   }
 

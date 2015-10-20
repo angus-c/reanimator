@@ -1,11 +1,15 @@
 .animationLabel {
-  flex: 1;
+  flex: 4;
   vertical-align: middle;
+}
+
+.buffer {
+  flex: 1;
 }
 
 .visualizationItem {
   display: flex;
-  flex: 1;
+  flex: 18;
   flex-direction: row;
   height: 2em
 }
