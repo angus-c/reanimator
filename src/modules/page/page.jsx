@@ -11,13 +11,12 @@ import './page.css';
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...store.get(), animationCount: 0, duration: 10000, elasped: 0};
+    this.state = {...store.get(), animationCount: 0, duration: 10000, elasped: -1};
     store.emitter.on('storeChange', data => this._update(data));
   }
 
   componentDidMount() {
-    debugger;
-    this.controlWidth = React.findDOMNode(this.refs.manual).clientWidth;
+    this.setState({controlWidth: React.findDOMNode(this.refs.manual).clientWidth});
   }
 
   render() {
@@ -45,7 +44,7 @@ class Container extends React.Component {
           easings = {easings}
           elapsed = {this.state.elapsed}
           selectedEasingName = {selectedEasingName}
-          vizWidth = {this.controlWidth}
+          vizWidth = {this.state.controlWidth}
         />
         <Formula
           formula={src}
@@ -61,7 +60,6 @@ class Container extends React.Component {
   }
 
   _play() {
-    debugger;
     Tweener.tagAllForDeletion();
     this.setState({animationCount: this.state.animationCount + 1, elapsed: -1});
   }

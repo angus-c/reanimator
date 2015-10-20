@@ -91,7 +91,7 @@
 	    _classCallCheck(this, Container);
 
 	    _get(Object.getPrototypeOf(Container.prototype), 'constructor', this).call(this, props);
-	    this.state = _extends({}, _dataStore2['default'].get(), { animationCount: 0, duration: 10000, elasped: 0 });
+	    this.state = _extends({}, _dataStore2['default'].get(), { animationCount: 0, duration: 10000, elasped: -1 });
 	    _dataStore2['default'].emitter.on('storeChange', function (data) {
 	      return _this._update(data);
 	    });
@@ -100,8 +100,7 @@
 	  _createClass(Container, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      debugger;
-	      this.controlWidth = _react2['default'].findDOMNode(this.refs.manual).clientWidth;
+	      this.setState({ controlWidth: _react2['default'].findDOMNode(this.refs.manual).clientWidth });
 	    }
 	  }, {
 	    key: 'render',
@@ -146,7 +145,7 @@
 	          easings: easings,
 	          elapsed: this.state.elapsed,
 	          selectedEasingName: selectedEasingName,
-	          vizWidth: this.controlWidth
+	          vizWidth: this.state.controlWidth
 	        }),
 	        _react2['default'].createElement(_formulaFormulaJsx2['default'], {
 	          formula: src,
@@ -163,7 +162,6 @@
 	  }, {
 	    key: '_play',
 	    value: function _play() {
-	      debugger;
 	      _libTweenState.Tweener.tagAllForDeletion();
 	      this.setState({ animationCount: this.state.animationCount + 1, elapsed: -1 });
 	    }
@@ -26928,8 +26926,8 @@
 	        { className: 'visualizationList' },
 	        _Object$keys(easings).map(function (key, i) {
 	          return _react2['default'].createElement(_visualizationItemVisualizationItemJsx2['default'], _extends({}, other, {
-	            key: i,
 	            fn: { name: key, value: easings[key] },
+	            key: i,
 	            selected: key == selectedEasingName
 	          }));
 	        })
@@ -27133,6 +27131,8 @@
 
 	var _classCallCheck = __webpack_require__(29)['default'];
 
+	var _Number$isNaN = __webpack_require__(263)['default'];
+
 	var _interopRequireDefault = __webpack_require__(36)['default'];
 
 	Object.defineProperty(exports, '__esModule', {
@@ -27161,18 +27161,22 @@
 	  }
 
 	  _createClass(Animation, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount(props) {
-	      this.startTime = Date.now();
-	      if (this.props.elapsed < 0) {
-	        this._startAnimation();
-	      }
-	    }
-	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      if (nextProps.easing != this.props.easing || nextProps.duration != this.props.duration) {
-	        this._startAnimation(nextProps.easing, nextProps.duration);
+	      var _props = this.props;
+	      var duration = _props.duration;
+	      var easing = _props.easing;
+	      var elapsed = _props.elapsed;
+	      var nextDuration = nextProps.duration;
+	      var nextEasing = nextProps.easing;
+	      var nextElapsed = nextProps.elapsed;
+
+	      if (nextElapsed > -1) {
+	        // manual
+	        this.setState({ left: this.props.vizWidth * this.props.easing(elapsed) });
+	      } else if (elapsed == -1 && (nextElapsed != elapsed || nextEasing != easing || nextDuration != duration)) {
+	        // auto
+	        this._startAnimation(nextEasing, nextDuration);
 	      }
 	    }
 	  }, {
@@ -27199,15 +27203,13 @@
 	  }, {
 	    key: '_renderFormula',
 	    value: function _renderFormula() {
-	      var elapsed = this.props.elapsed;
-
-	      if (elapsed > -1) {
-	        this.state.left = this.props.vizWidth * this.props.easing(elapsed);
+	      if (_Number$isNaN(this.state.left)) {
+	        // console.log('NaN');
 	      }
 	      return _react2['default'].createElement(
 	        'svg',
 	        { className: 'animation' },
-	        _react2['default'].createElement('circle', { cx: this.state.left, cy: '15', r: '10', fill: 'blue' })
+	        _react2['default'].createElement('circle', { cx: this.state.left, cy: '15', fill: 'blue', r: '10' })
 	      );
 	    }
 	  }, {
@@ -27216,6 +27218,7 @@
 	      var easing = arguments.length <= 0 || arguments[0] === undefined ? this.props.easing : arguments[0];
 	      var duration = arguments.length <= 1 || arguments[1] === undefined ? this.props.duration : arguments[1];
 
+	      debugger;
 	      if (this.tweenKey) {
 	        _libTweenState.Tweener.tagForDeletion(this.tweenKey);
 	      }
@@ -27411,6 +27414,32 @@
 
 	// exports
 
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(264), __esModule: true };
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(265);
+	module.exports = __webpack_require__(13).Number.isNaN;
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// 20.1.2.4 Number.isNaN(number)
+	var $def = __webpack_require__(11);
+
+	$def($def.S, 'Number', {
+	  isNaN: function isNaN(number){
+	    return number != number;
+	  }
+	});
 
 /***/ }
 /******/ ]);

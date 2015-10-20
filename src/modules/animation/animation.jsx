@@ -26,19 +26,16 @@ class Animation extends React.Component {
     linear: false
   }
 
-  componentDidMount(props) {
-    this.startTime = Date.now();
-    if (this.props.elapsed < 0) {
-      this._startAnimation();
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.easing != this.props.easing ||
-      nextProps.duration != this.props.duration
-    ) {
-      this._startAnimation(nextProps.easing, nextProps.duration);
+    const { duration, easing, elapsed } = this.props;
+    const { duration: nextDuration, easing: nextEasing, elapsed: nextElapsed } = nextProps;
+
+    if (nextElapsed > -1) {
+      // manual
+      this.setState({left: this.props.vizWidth * this.props.easing(elapsed)});
+    } else if (elapsed == -1 && (nextElapsed != elapsed || nextEasing != easing || nextDuration != duration)) {
+      // auto
+      this._startAnimation(nextEasing, nextDuration);
     }
   }
 
@@ -62,18 +59,18 @@ class Animation extends React.Component {
   // }
 
   _renderFormula() {
-    const { elapsed } = this.props;
-    if (elapsed > -1) {
-      this.state.left = this.props.vizWidth * this.props.easing(elapsed);
+    if (Number.isNaN(this.state.left)) {
+      // console.log('NaN');
     }
     return (
       <svg className='animation'>
-        <circle cx={this.state.left} cy="15" r="10" fill="blue" />
+        <circle cx={this.state.left} cy="15" fill="blue" r="10" />
       </svg>
     );
   }
 
   _startAnimation(easing = this.props.easing, duration = this.props.duration) {
+    debugger;
     if (this.tweenKey) {
       Tweener.tagForDeletion(this.tweenKey);
     }

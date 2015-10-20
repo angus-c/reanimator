@@ -12,8 +12,8 @@ class Visualization extends React.Component {
         {Object.keys(easings).map((key, i) => (
           <VisualizationItem
             {...other}
-            key={i}
             fn={{name: key, value: easings[key]}}
+            key={i}
             selected={key == selectedEasingName}
           />
         ))}
