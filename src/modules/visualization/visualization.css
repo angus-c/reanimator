@@ -2,6 +2,6 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding-left: 1em;
+  padding: 0;
   width: 100%;
 }

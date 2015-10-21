@@ -28,7 +28,8 @@ class Animation extends React.Component {
 
   componentDidMount() {
     const { duration, easing } = this.props;
-    this.animationWidth = React.findDOMNode(this.refs.animationPath).clientWidth;
+    // TODO: derive padding
+    this.animationWidth = React.findDOMNode(this.refs.animationPath).clientWidth - 30;
     this.startTime = Date.now();
     this._startAnimation(easing, duration);
   }

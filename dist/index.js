@@ -91,18 +91,18 @@
 	    _classCallCheck(this, Container);
 
 	    _get(Object.getPrototypeOf(Container.prototype), 'constructor', this).call(this, props);
-	    this.state = _extends({}, _dataStore2['default'].get(), { animationCount: 0, duration: 10000, elasped: -1 });
+	    this.state = _extends({}, _dataStore2['default'].get(), {
+	      animationCount: 0,
+	      autoPlay: true,
+	      duration: 10000,
+	      elapsed: 0
+	    });
 	    _dataStore2['default'].emitter.on('storeChange', function (data) {
 	      return _this._update(data);
 	    });
 	  }
 
 	  _createClass(Container, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.setState({ controlWidth: _react2['default'].findDOMNode(this.refs.manual).clientWidth });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -116,17 +116,18 @@
 
 	      return _react2['default'].createElement(
 	        'div',
-	        { className: 'page' },
+	        { className: 'page', key: this.state.animationCount },
 	        _react2['default'].createElement(
 	          'div',
-	          { className: 'controls', key: this.state.animationCount },
+	          { className: 'controls' },
 	          _react2['default'].createElement(
 	            'button',
-	            { className: 'replay', onClick: function (e) {
+	            { className: 'autoplay', onClick: function (e) {
 	                return _this2._play(e);
 	              } },
-	            'Play >'
+	            'AutoPlay >'
 	          ),
+	          _react2['default'].createElement('div', { className: 'buffer' }),
 	          _react2['default'].createElement('input', {
 	            className: 'manual',
 	            max: 1,
@@ -134,18 +135,18 @@
 	            onChange: function (e) {
 	              return _this2._elapsedChanged(e);
 	            },
-	            ref: 'manual',
-	            step: 0.01,
+	            step: 0.001,
 	            type: 'range',
 	            value: this.state.elapsed
-	          })
+	          }),
+	          _react2['default'].createElement('div', { className: 'buffer' })
 	        ),
 	        _react2['default'].createElement(_visualizationVisualizationJsx2['default'], {
+	          autoPlay: this.state.autoPlay,
 	          duration: this.state.duration,
 	          easings: easings,
 	          elapsed: this.state.elapsed,
-	          selectedEasingName: selectedEasingName,
-	          vizWidth: this.state.controlWidth
+	          selectedEasingName: selectedEasingName
 	        }),
 	        _react2['default'].createElement(_formulaFormulaJsx2['default'], {
 	          formula: src,
@@ -157,13 +158,14 @@
 	  }, {
 	    key: '_elapsedChanged',
 	    value: function _elapsedChanged(e) {
-	      this.setState({ elapsed: Number(e.target.value) });
+	      _libTweenState.Tweener.tagAllForDeletion();
+	      this.setState({ autoPlay: false, elapsed: Number(e.target.value) });
 	    }
 	  }, {
 	    key: '_play',
 	    value: function _play() {
 	      _libTweenState.Tweener.tagAllForDeletion();
-	      this.setState({ animationCount: this.state.animationCount + 1, elapsed: -1 });
+	      this.setState({ animationCount: this.state.animationCount + 1, autoPlay: true });
 	    }
 	  }, {
 	    key: '_update',
@@ -26933,6 +26935,13 @@
 	        })
 	      );
 	    }
+	  }], [{
+	    key: 'propTypes',
+	    value: {
+	      easings: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.fn),
+	      selectedEasingName: _react2['default'].PropTypes.string
+	    },
+	    enumerable: true
 	  }]);
 
 	  return Visualization;
@@ -27018,16 +27027,15 @@
 	      var _this = this;
 
 	      var _props = this.props;
-	      var elapsed = _props.elapsed;
 	      var fn = _props.fn;
 	      var selected = _props.selected;
 
-	      var other = _objectWithoutProperties(_props, ['elapsed', 'fn', 'selected']);
+	      var other = _objectWithoutProperties(_props, ['fn', 'selected']);
 
 	      var formulaButtonClass = (0, _classnames2['default'])('formula', { 'selected': selected });
 	      return _react2['default'].createElement(
 	        'li',
-	        { key: fn.name, className: 'visualizationItem' },
+	        { className: 'visualizationItem', key: fn.name },
 	        _react2['default'].createElement(
 	          'span',
 	          { className: 'animationLabel' },
@@ -27043,11 +27051,13 @@
 	            '𝑓'
 	          )
 	        ),
+	        _react2['default'].createElement('div', { className: 'buffer' }),
 	        _react2['default'].createElement(_animationAnimationJsx2['default'], _extends({}, other, {
 	          className: 'animation',
 	          easing: fn.value,
 	          key: fn.name
-	        }))
+	        })),
+	        _react2['default'].createElement('div', { className: 'buffer' })
 	      );
 	    }
 	  }, {
@@ -27055,6 +27065,13 @@
 	    value: function _select() {
 	      _dataStore2['default'].updateSelectedEasing(this.props.fn.name);
 	    }
+	  }], [{
+	    key: 'propTypes',
+	    value: {
+	      fn: _react2['default'].PropTypes.func,
+	      selected: _react2['default'].PropTypes.bool
+	    },
+	    enumerable: true
 	  }]);
 
 	  return VisualizationItem;
@@ -27131,8 +27148,6 @@
 
 	var _classCallCheck = __webpack_require__(29)['default'];
 
-	var _Number$isNaN = __webpack_require__(263)['default'];
-
 	var _interopRequireDefault = __webpack_require__(36)['default'];
 
 	Object.defineProperty(exports, '__esModule', {
@@ -27155,28 +27170,34 @@
 
 	    _get(Object.getPrototypeOf(Animation.prototype), 'constructor', this).call(this, props);
 	    this.state = {
-	      left: 0,
-	      startTime: -1
+	      left: 0
 	    };
 	  }
 
 	  _createClass(Animation, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      var _props = this.props;
 	      var duration = _props.duration;
 	      var easing = _props.easing;
-	      var elapsed = _props.elapsed;
-	      var nextDuration = nextProps.duration;
-	      var nextEasing = nextProps.easing;
-	      var nextElapsed = nextProps.elapsed;
 
-	      if (nextElapsed > -1) {
-	        // manual
-	        this.setState({ left: this.props.vizWidth * this.props.easing(elapsed) });
-	      } else if (elapsed == -1 && (nextElapsed != elapsed || nextEasing != easing || nextDuration != duration)) {
-	        // auto
-	        this._startAnimation(nextEasing, nextDuration);
+	      // TODO: derive padding
+	      this.animationWidth = _react2['default'].findDOMNode(this.refs.animationPath).clientWidth - 30;
+	      this.startTime = Date.now();
+	      this._startAnimation(easing, duration);
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var autoPlay = nextProps.autoPlay;
+	      var duration = nextProps.duration;
+	      var easing = nextProps.easing;
+	      var elapsed = nextProps.elapsed;
+
+	      if (autoPlay) {
+	        this._startAnimation(easing, duration);
+	      } else {
+	        this.setState({ left: this.animationWidth * this.props.easing(elapsed) });
 	      }
 	    }
 	  }, {
@@ -27203,12 +27224,9 @@
 	  }, {
 	    key: '_renderFormula',
 	    value: function _renderFormula() {
-	      if (_Number$isNaN(this.state.left)) {
-	        // console.log('NaN');
-	      }
 	      return _react2['default'].createElement(
 	        'svg',
-	        { className: 'animation' },
+	        { className: 'animation', ref: 'animationPath' },
 	        _react2['default'].createElement('circle', { cx: this.state.left, cy: '15', fill: 'blue', r: '10' })
 	      );
 	    }
@@ -27218,7 +27236,6 @@
 	      var easing = arguments.length <= 0 || arguments[0] === undefined ? this.props.easing : arguments[0];
 	      var duration = arguments.length <= 1 || arguments[1] === undefined ? this.props.duration : arguments[1];
 
-	      debugger;
 	      if (this.tweenKey) {
 	        _libTweenState.Tweener.tagForDeletion(this.tweenKey);
 	      }
@@ -27226,24 +27243,25 @@
 	        beginValue: this.state.left,
 	        easing: easing,
 	        duration: duration - (Date.now() - this.startTime),
-	        endValue: this.props.vizWidth
+	        endValue: this.animationWidth
 	      });
 	    }
 	  }], [{
 	    key: 'propTypes',
 	    value: {
+	      autoPlay: _react2['default'].PropTypes.bool,
 	      duration: _react2['default'].PropTypes.number,
 	      easing: _react2['default'].PropTypes.func,
 	      elapsed: _react2['default'].PropTypes.number,
-	      linear: _react2['default'].PropTypes.bool,
-	      vizWidth: _react2['default'].PropTypes.number
+	      linear: _react2['default'].PropTypes.bool
 	    },
 	    enumerable: true
 	  }, {
 	    key: 'defaultProps',
 	    value: {
+	      autoPlay: true,
 	      duration: 10000,
-	      elapsed: -1,
+	      elapsed: 0,
 	      linear: false
 	    },
 	    enumerable: true
@@ -27290,7 +27308,7 @@
 
 
 	// module
-	exports.push([module.id, ".animation {\n  flex: 6;\n}", ""]);
+	exports.push([module.id, ".animation {\n  flex: 18;\n}\n", ""]);
 
 	// exports
 
@@ -27330,7 +27348,7 @@
 
 
 	// module
-	exports.push([module.id, ".animationLabel {\n  flex: 1;\n  vertical-align: middle;\n}\n\n.visualizationItem {\n  display: flex;\n  flex: 1;\n  flex-direction: row;\n  height: 2em\n}", ""]);
+	exports.push([module.id, ".animation {\n  padding: 0 15px 0 15px\n}\n\n.animationLabel {\n  flex: 4;\n  vertical-align: middle;\n}\n\n.buffer {\n  flex: 1;\n}\n\n.visualizationItem {\n  display: flex;\n  flex: 18;\n  flex-direction: row;\n  height: 2em\n}\n", ""]);
 
 	// exports
 
@@ -27370,7 +27388,7 @@
 
 
 	// module
-	exports.push([module.id, ".visualizationList {\n  display: flex;\n  flex: 1;\n  flex-direction: column;\n  padding-left: 1em;\n  width: 100%;\n}", ""]);
+	exports.push([module.id, ".visualizationList {\n  display: flex;\n  flex: 1;\n  flex-direction: column;\n  padding: 0;\n  width: 100%;\n}\n", ""]);
 
 	// exports
 
@@ -27410,36 +27428,10 @@
 
 
 	// module
-	exports.push([module.id, ".page {\n  display: flex;\n  flex-direction: column;\n}\n\n.controls {\n  display: flex;  \n  flex-direction: row;\n}\n\n.replay {\n  flex: 1;\n}\n\n.manual {\n  flex: 6;\n}\n", ""]);
+	exports.push([module.id, ".page {\n  display: flex;\n  flex-direction: column;\n}\n\n.controls {\n  display: flex;\n  flex-direction: row;\n}\n\n.buffer {\n  flex: 1;\n  opacity: 0;\n}\n\n.autoplay {\n  flex: 4;\n  padding: 0;\n}\n\n.manual {\n  flex: 18;\n}\n", ""]);
 
 	// exports
 
-
-/***/ },
-/* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(264), __esModule: true };
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(265);
-	module.exports = __webpack_require__(13).Number.isNaN;
-
-/***/ },
-/* 265 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// 20.1.2.4 Number.isNaN(number)
-	var $def = __webpack_require__(11);
-
-	$def($def.S, 'Number', {
-	  isNaN: function isNaN(number){
-	    return number != number;
-	  }
-	});
 
 /***/ }
 /******/ ]);

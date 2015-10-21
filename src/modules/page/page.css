@@ -10,10 +10,12 @@
 
 .buffer {
   flex: 1;
+  opacity: 0;
 }
 
-.replay {
+.autoplay {
   flex: 4;
+  padding: 0;
 }
 
 .manual {

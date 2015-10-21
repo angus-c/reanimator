@@ -29,14 +29,14 @@ class Container extends React.Component {
     return (
       <div className='page' key={this.state.animationCount}>
         <div className='controls'>
-          <button className='replay' onClick={e => this._play(e)}>AutoPlay ></button>
+          <button className='autoplay' onClick={e => this._play(e)}>AutoPlay ></button>
           <div className='buffer'></div>
           <input
             className='manual'
             max={1}
             min={0}
             onChange={(e) => this._elapsedChanged(e)}
-            step={0.01}
+            step={0.001}
             type='range'
             value={this.state.elapsed}
           />
