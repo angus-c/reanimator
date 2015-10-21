@@ -120,16 +120,24 @@
 	        _react2['default'].createElement(
 	          'div',
 	          { className: 'controls' },
+	          _react2['default'].createElement('div', { className: 'buffer' }),
 	          _react2['default'].createElement(
 	            'button',
-	            { className: 'autoplay', onClick: function (e) {
+	            { className: 'autoplay button selected', onClick: function (e) {
 	                return _this2._play(e);
 	              } },
 	            'AutoPlay >'
 	          ),
 	          _react2['default'].createElement('div', { className: 'buffer' }),
+	          _react2['default'].createElement(
+	            'button',
+	            { className: 'manual button', onClick: function (e) {
+	                return _this2._play(e);
+	              } },
+	            'Manual >'
+	          ),
 	          _react2['default'].createElement('input', {
-	            className: 'manual',
+	            className: 'slider',
 	            max: 1,
 	            min: 0,
 	            onChange: function (e) {
@@ -27428,7 +27436,7 @@
 
 
 	// module
-	exports.push([module.id, ".page {\n  display: flex;\n  flex-direction: column;\n}\n\n.controls {\n  display: flex;\n  flex-direction: row;\n}\n\n.buffer {\n  flex: 1;\n  opacity: 0;\n}\n\n.autoplay {\n  flex: 4;\n  padding: 0;\n}\n\n.manual {\n  flex: 18;\n}\n", ""]);
+	exports.push([module.id, ".page {\n  display: flex;\n  flex-direction: column;\n}\n\n.controls {\n  display: flex;\n  flex-direction: row;\n}\n\n.buffer {\n  flex: 1;\n  opacity: 0;\n}\n\n.button {\n  background-color: #FFF;\n  color: #000;\n}\n\n.button.selected {\n  background-color: #00F;\n  color: #FFF;\n}\n\n.autoplay {\n  flex: 1;\n  padding: 0;\n}\n\n.manual {\n  flex: 1;\n  padding: 0;\n}\n\n.slider {\n  flex: 18;\n}\n", ""]);
 
 	// exports
 

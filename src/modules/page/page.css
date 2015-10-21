@@ -13,11 +13,26 @@
   opacity: 0;
 }
 
+.button {
+  background-color: #FFF;
+  color: #000;
+}
+
+.button.selected {
+  background-color: #00F;
+  color: #FFF;
+}
+
 .autoplay {
-  flex: 4;
+  flex: 1;
   padding: 0;
 }
 
 .manual {
+  flex: 1;
+  padding: 0;
+}
+
+.slider {
   flex: 18;
 }
