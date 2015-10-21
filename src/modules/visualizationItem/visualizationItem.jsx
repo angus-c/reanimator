@@ -8,12 +8,18 @@ import Animation from '../animation/animation.jsx';
 import './visualizationItem.css';
 
 class VisualizationItem extends React.Component {
+
+  static propTypes = {
+    fn: React.PropTypes.func,
+    selected: React.PropTypes.bool
+  }
+
   render() {
-    const {elapsed, fn, selected, ...other} = this.props;
+    const {fn, selected, ...other} = this.props;
     const formulaButtonClass =
       classnames('formula', {'selected': selected});
     return (
-      <li key={fn.name} className="visualizationItem">
+      <li className="visualizationItem" key={fn.name}>
         <span className="animationLabel">
           {fn.name}
           <button
@@ -23,13 +29,14 @@ class VisualizationItem extends React.Component {
             𝑓
           </button>
         </span>
+        <div className='buffer'></div>
         <Animation
           {...other}
           className="animation"
           easing={fn.value}
-          elapsed={elapsed}
           key={fn.name}
         />
+        <div className='buffer'></div>
       </li>
     );
   }

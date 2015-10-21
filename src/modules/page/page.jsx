@@ -11,7 +11,13 @@ import './page.css';
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...store.get(), animationCount: 0, duration: 10000, elapsed: 0.7};
+    this.state = {
+      ...store.get(),
+      animationCount: 0,
+      autoPlay: true,
+      duration: 10000,
+      elapsed: 0
+    };
     store.emitter.on('storeChange', data => this._update(data));
   }
 
@@ -21,43 +27,45 @@ class Container extends React.Component {
     const src = store.getSource(selectedEasing);
 
     return (
-      <div key={this.state.animationCount} >
-        <button onClick={e => this._replay(e)}>Replay</button>
-        <input
-          style={{marginLeft: 200, width: 1000}}
-          min={0}
-          max={1}
-          ref="duration"
-          step={0.01}
-          type="range"
-          onChange={(e) => this._elapsedChanged(e)}
-          value={this.state.elapsed}
-        />
-        <div className='page'>
-          <Visualization
-            easings = {easings}
-            elapsed = {this.state.elapsed}
-            duration = {this.state.duration}
-            selectedEasingName = {selectedEasingName}
+      <div className='page' key={this.state.animationCount}>
+        <div className='controls'>
+          <button className='replay' onClick={e => this._play(e)}>AutoPlay ></button>
+          <div className='buffer'></div>
+          <input
+            className='manual'
+            max={1}
+            min={0}
+            onChange={(e) => this._elapsedChanged(e)}
+            step={0.01}
+            type='range'
+            value={this.state.elapsed}
           />
-          <Formula
-            name={selectedEasingName}
-            formula={src}
-            syntaxError={selectedEasing.syntaxError}
-          />
+          <div className='buffer'></div>
         </div>
+        <Visualization
+          autoPlay = {this.state.autoPlay}
+          duration = {this.state.duration}
+          easings = {easings}
+          elapsed = {this.state.elapsed}
+          selectedEasingName = {selectedEasingName}
+        />
+        <Formula
+          formula={src}
+          name={selectedEasingName}
+          syntaxError={selectedEasing.syntaxError}
+        />
       </div>
     );
   }
 
   _elapsedChanged(e) {
-    debugger;
-    this.setState({elapsed: Number(e.target.value)});
+    Tweener.tagAllForDeletion();
+    this.setState({autoPlay: false, elapsed: Number(e.target.value)});
   }
 
-  _replay() {
+  _play() {
     Tweener.tagAllForDeletion();
-    this.setState({animationCount: this.state.animationCount + 1});
+    this.setState({animationCount: this.state.animationCount + 1, autoPlay: true});
   }
 
   _update(data) {

@@ -7,12 +7,12 @@ class Animation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      left: 100,
-      startTime: -1
+      left: 0
     }
   }
 
   static propTypes = {
+    autoPlay: React.PropTypes.bool,
     duration: React.PropTypes.number,
     easing: React.PropTypes.func,
     elapsed: React.PropTypes.number,
@@ -20,24 +20,25 @@ class Animation extends React.Component {
   }
 
   static defaultProps = {
+    autoPlay: true,
     duration: 10000,
-    elapsed: -1,
+    elapsed: 0,
     linear: false
   }
 
-  componentDidMount(props) {
+  componentDidMount() {
+    const { duration, easing } = this.props;
+    this.animationWidth = React.findDOMNode(this.refs.animationPath).clientWidth;
     this.startTime = Date.now();
-    if (this.props.elapsed < 0) {
-      this._startAnimation();
-    }
+    this._startAnimation(easing, duration);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.easing != this.props.easing ||
-      nextProps.duration != this.props.duration
-    ) {
-      this._startAnimation(nextProps.easing, nextProps.duration);
+    const { autoPlay, duration, easing, elapsed } = nextProps;
+    if (autoPlay) {
+      this._startAnimation(easing, duration);
+    } else {
+      this.setState({left: this.animationWidth * this.props.easing(elapsed)});
     }
   }
 
@@ -45,33 +46,30 @@ class Animation extends React.Component {
     return this._renderFormula();
   }
 
-  _renderControl() {
-    return (
-      <div
-        style={{
-          position: 'absolute',
-          left: this.state.left + 6,
-          width: 4,
-          height: 150,
-          backgroundColor: 'red'
-        }}>
-      </div>
-    );
-  }
+  // vertical needle representing linear animation path
+  // _renderControl() {
+  //   return (
+  //     <div
+  //       style={{
+  //         position: 'absolute',
+  //         left: this.state.left,
+  //         width: 4,
+  //         height: 150,
+  //         backgroundColor: 'red'
+  //       }}>
+  //     </div>
+  //   );
+  // }
 
   _renderFormula() {
-    const { elapsed } = this.props;
-    if (elapsed > -1) {
-      this.state.left = 1000 * this.props.easing(elapsed);
-    }
     return (
-      <svg className='animation'>
-        <circle cx={this.state.left} cy="15" r="10" fill="blue" />
+      <svg className='animation' ref="animationPath">
+        <circle cx={this.state.left} cy="15" fill="blue" r="10" />
       </svg>
     );
   }
 
-  _startAnimation(easing=this.props.easing, duration=this.props.duration) {
+  _startAnimation(easing = this.props.easing, duration = this.props.duration) {
     if (this.tweenKey) {
       Tweener.tagForDeletion(this.tweenKey);
     }
@@ -79,7 +77,7 @@ class Animation extends React.Component {
       beginValue: this.state.left,
       easing,
       duration: duration - (Date.now() - this.startTime),
-      endValue: 1000
+      endValue: this.animationWidth
     });
   }
 }

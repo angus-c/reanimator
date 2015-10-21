@@ -5,6 +5,12 @@ import VisualizationItem from '../visualizationItem/visualizationItem.jsx';
 import './visualization.css';
 
 class Visualization extends React.Component {
+
+  static propTypes = {
+    easings: React.PropTypes.arrayOf(React.PropTypes.fn),
+    selectedEasingName: React.PropTypes.string
+  }
+
   render() {
     const {easings, selectedEasingName, ...other} = this.props;
     return (
@@ -12,8 +18,8 @@ class Visualization extends React.Component {
         {Object.keys(easings).map((key, i) => (
           <VisualizationItem
             {...other}
-            key={i}
             fn={{name: key, value: easings[key]}}
+            key={i}
             selected={key == selectedEasingName}
           />
         ))}
