@@ -8,6 +8,12 @@ import Animation from '../animation/animation.jsx';
 import './visualizationItem.css';
 
 class VisualizationItem extends React.Component {
+
+  static propTypes = {
+    fn: React.PropTypes.func,
+    selected: React.PropTypes.bool
+  }
+
   render() {
     const {fn, selected, ...other} = this.props;
     const formulaButtonClass =

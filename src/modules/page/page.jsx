@@ -11,7 +11,13 @@ import './page.css';
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...store.get(), animationCount: 0, duration: 10000, elasped: -1};
+    this.state = {
+      ...store.get(),
+      animationCount: 0,
+      autoPlay: true,
+      duration: 10000,
+      elapsed: 0
+    };
     store.emitter.on('storeChange', data => this._update(data));
   }
 
@@ -23,7 +29,7 @@ class Container extends React.Component {
     return (
       <div className='page' key={this.state.animationCount}>
         <div className='controls'>
-          <button className='replay' onClick={e => this._play(e)}>Play ></button>
+          <button className='replay' onClick={e => this._play(e)}>AutoPlay ></button>
           <div className='buffer'></div>
           <input
             className='manual'
@@ -37,11 +43,11 @@ class Container extends React.Component {
           <div className='buffer'></div>
         </div>
         <Visualization
+          autoPlay = {this.state.autoPlay}
           duration = {this.state.duration}
           easings = {easings}
           elapsed = {this.state.elapsed}
           selectedEasingName = {selectedEasingName}
-          vizWidth = {this.state.controlWidth}
         />
         <Formula
           formula={src}
@@ -54,12 +60,12 @@ class Container extends React.Component {
 
   _elapsedChanged(e) {
     Tweener.tagAllForDeletion();
-    this.setState({elapsed: Number(e.target.value)});
+    this.setState({autoPlay: false, elapsed: Number(e.target.value)});
   }
 
   _play() {
     Tweener.tagAllForDeletion();
-    this.setState({animationCount: this.state.animationCount + 1, elapsed: -1});
+    this.setState({animationCount: this.state.animationCount + 1, autoPlay: true});
   }
 
   _update(data) {

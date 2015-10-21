@@ -12,6 +12,7 @@ class Animation extends React.Component {
   }
 
   static propTypes = {
+    autoPlay: React.PropTypes.bool,
     duration: React.PropTypes.number,
     easing: React.PropTypes.func,
     elapsed: React.PropTypes.number,
@@ -19,8 +20,9 @@ class Animation extends React.Component {
   }
 
   static defaultProps = {
+    autoPlay: true,
     duration: 10000,
-    elapsed: -1,
+    elapsed: 0,
     linear: false
   }
 
@@ -32,16 +34,11 @@ class Animation extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { duration, easing, elapsed } = this.props;
-    const { duration: nextDuration, easing: nextEasing, elapsed: nextElapsed } = nextProps;
-
-    if (nextElapsed > -1) {
-      // manual
-      debugger;
-      this.setState({left: this.animationWidth * this.props.easing(nextElapsed)});
-    } else if (nextEasing != easing || nextDuration != duration) {
-      // auto
-      this._startAnimation(nextEasing, nextDuration);
+    const { autoPlay, duration, easing, elapsed } = nextProps;
+    if (autoPlay) {
+      this._startAnimation(easing, duration);
+    } else {
+      this.setState({left: this.animationWidth * this.props.easing(elapsed)});
     }
   }
 

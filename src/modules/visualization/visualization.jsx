@@ -5,6 +5,12 @@ import VisualizationItem from '../visualizationItem/visualizationItem.jsx';
 import './visualization.css';
 
 class Visualization extends React.Component {
+
+  static propTypes = {
+    easings: React.PropTypes.arrayOf(React.PropTypes.fn),
+    selectedEasingName: React.PropTypes.string
+  }
+
   render() {
     const {easings, selectedEasingName, ...other} = this.props;
     return (
