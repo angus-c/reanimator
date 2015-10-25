@@ -29,10 +29,10 @@ class Container extends React.Component {
     return (
       <div className='page' key={this.state.animationCount}>
         <div className='controls'>
+          <button className='autoplay button selected' onClick={e => this._play(e)}>AutoPlay</button>
+          <button className='manual button' onClick={e => this._manual(e)}>Manual</button>
           <div className='buffer'></div>
-          <button className='autoplay button selected' onClick={e => this._play(e)}>AutoPlay ></button>
           <div className='buffer'></div>
-          <button className='manual button' onClick={e => this._play(e)}>Manual ></button>
           <input
             className='slider'
             max={1}
@@ -63,6 +63,11 @@ class Container extends React.Component {
   _elapsedChanged(e) {
     Tweener.tagAllForDeletion();
     this.setState({autoPlay: false, elapsed: Number(e.target.value)});
+  }
+
+  _manual() {
+    Tweener.tagAllForDeletion();
+    this.setState({autoPlay: false});
   }
 
   _play() {

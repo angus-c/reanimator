@@ -14,8 +14,11 @@
 }
 
 .button {
-  background-color: #FFF;
+  border: none;
+  background-color: #EEE;
   color: #000;
+  display: block;
+  padding: 0.1em 0.2em;
 }
 
 .button.selected {
@@ -24,13 +27,11 @@
 }
 
 .autoplay {
-  flex: 1;
-  padding: 0;
+  flex: 1.5;
 }
 
 .manual {
-  flex: 1;
-  padding: 0;
+  flex: 1.5;
 }
 
 .slider {
