@@ -1,4 +1,4 @@
-## Easings Editor
+## Reanimator
 
 ___
 WORK IN PROGRESS  
