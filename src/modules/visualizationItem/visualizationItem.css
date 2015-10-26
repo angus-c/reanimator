@@ -7,6 +7,19 @@
   vertical-align: middle;
 }
 
+button.formula {
+  background-color: #f0f8ff;
+  border: 1px solid black;
+  margin-left: 4px;
+  outline: none;
+  vertical-align: top;
+}
+
+button.selected {
+  background-color: #aaf;
+  color: #fff;
+}
+
 .buffer {
   flex: 1;
 }

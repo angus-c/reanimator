@@ -1,4 +1,5 @@
 import {Tweener} from '../../lib/tweenState';
+import classnames from 'classnames';
 import React from 'react';
 
 import Formula from '../formula/formula.jsx';
@@ -25,12 +26,16 @@ class Container extends React.Component {
     const {easings, selectedEasingName} = this.state;
     const selectedEasing = easings[selectedEasingName];
     const src = store.getSource(selectedEasing);
+    const autoPlayButtonClass = classnames(
+      'autoplay', 'mode', 'left', {selected: this.state.autoPlay});
+    const manualButtonClass = classnames(
+      'autoplay', 'mode', 'right', {selected: !this.state.autoPlay});
 
     return (
       <div className='page' key={this.state.animationCount}>
         <div className='controls'>
-          <button className='autoplay button selected' onClick={e => this._play(e)}>AutoPlay</button>
-          <button className='manual button' onClick={e => this._manual(e)}>Manual</button>
+          <button className={autoPlayButtonClass} onClick={e => this._play(e)}>AutoPlay</button>
+          <button className={manualButtonClass} onClick={e => this._manual(e)}>Manual</button>
           <div className='buffer'></div>
           <div className='buffer'></div>
           <input
@@ -65,7 +70,7 @@ class Container extends React.Component {
     this.setState({autoPlay: false, elapsed: Number(e.target.value)});
   }
 
-  _manual() {
+  _manual(e) {
     Tweener.tagAllForDeletion();
     this.setState({autoPlay: false});
   }

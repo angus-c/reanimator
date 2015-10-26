@@ -64,6 +64,10 @@
 
 	var _libTweenState = __webpack_require__(37);
 
+	var _classnames = __webpack_require__(253);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
 	var _react = __webpack_require__(43);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -113,6 +117,8 @@
 
 	      var selectedEasing = easings[selectedEasingName];
 	      var src = _dataStore2['default'].getSource(selectedEasing);
+	      var autoPlayButtonClass = (0, _classnames2['default'])('autoplay', 'mode', 'left', { selected: this.state.autoPlay });
+	      var manualButtonClass = (0, _classnames2['default'])('autoplay', 'mode', 'right', { selected: !this.state.autoPlay });
 
 	      return _react2['default'].createElement(
 	        'div',
@@ -122,14 +128,14 @@
 	          { className: 'controls' },
 	          _react2['default'].createElement(
 	            'button',
-	            { className: 'autoplay button selected', onClick: function (e) {
+	            { className: autoPlayButtonClass, onClick: function (e) {
 	                return _this2._play(e);
 	              } },
 	            'AutoPlay'
 	          ),
 	          _react2['default'].createElement(
 	            'button',
-	            { className: 'manual button', onClick: function (e) {
+	            { className: manualButtonClass, onClick: function (e) {
 	                return _this2._manual(e);
 	              } },
 	            'Manual'
@@ -171,7 +177,7 @@
 	    }
 	  }, {
 	    key: '_manual',
-	    value: function _manual() {
+	    value: function _manual(e) {
 	      _libTweenState.Tweener.tagAllForDeletion();
 	      this.setState({ autoPlay: false });
 	    }
@@ -27362,7 +27368,7 @@
 
 
 	// module
-	exports.push([module.id, ".animation {\n  padding: 0 15px 0 15px\n}\n\n.animationLabel {\n  flex: 4;\n  vertical-align: middle;\n}\n\n.buffer {\n  flex: 1;\n}\n\n.visualizationItem {\n  display: flex;\n  flex: 18;\n  flex-direction: row;\n  height: 2em\n}\n", ""]);
+	exports.push([module.id, ".animation {\n  padding: 0 15px 0 15px\n}\n\n.animationLabel {\n  flex: 4;\n  vertical-align: middle;\n}\n\nbutton.formula {\n  background-color: #f0f8ff;\n  border: 1px solid black;\n  margin-left: 4px;\n  outline: none;\n  vertical-align: top;\n}\n\nbutton.selected {\n  background-color: #aaf;\n  color: #fff;\n}\n\n.buffer {\n  flex: 1;\n}\n\n.visualizationItem {\n  display: flex;\n  flex: 18;\n  flex-direction: row;\n  height: 2em\n}\n", ""]);
 
 	// exports
 
@@ -27442,7 +27448,7 @@
 
 
 	// module
-	exports.push([module.id, ".page {\n  display: flex;\n  flex-direction: column;\n}\n\n.controls {\n  display: flex;\n  flex-direction: row;\n}\n\n.buffer {\n  flex: 1;\n  opacity: 0;\n}\n\n.button {\n  border: none;\n  background-color: #EEE;\n  color: #000;\n  display: block;\n  padding: 0.1em 0.2em;\n}\n\n.button.selected {\n  background-color: #00F;\n  color: #FFF;\n}\n\n.autoplay {\n  flex: 1.5;\n}\n\n.manual {\n  flex: 1.5;\n}\n\n.slider {\n  flex: 18;\n}\n", ""]);
+	exports.push([module.id, ".page {\n  display: flex;\n  flex-direction: column;\n}\n\n.controls {\n  display: flex;\n  flex-direction: row;\n}\n\n.buffer {\n  flex: 1;\n  opacity: 0;\n}\n\nbutton.mode {\n  background-color: #f0f8ff;\n  border: solid black;\n  color: #000;\n  display: block;\n  outline: 0;\n  padding: 0.1em 0.2em;\n}\n\nbutton.left {\n  border-width: 1px 0 1px 1px;\n}\n\nbutton.right {\n  border-width: 1px 1px 1px 0;\n}\n\nbutton.selected {\n  background-color: #aaF;\n  color: #fff;\n}\n\n.autoplay {\n  flex: 1.5;\n}\n\n.manual {\n  flex: 1.5;\n}\n\n.slider {\n  flex: 18;\n}\n", ""]);
 
 	// exports
 

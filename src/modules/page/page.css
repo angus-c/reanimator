@@ -13,17 +13,26 @@
   opacity: 0;
 }
 
-.button {
-  border: none;
-  background-color: #EEE;
+button.mode {
+  background-color: #f0f8ff;
+  border: solid black;
   color: #000;
   display: block;
+  outline: 0;
   padding: 0.1em 0.2em;
 }
 
-.button.selected {
-  background-color: #00F;
-  color: #FFF;
+button.left {
+  border-width: 1px 0 1px 1px;
+}
+
+button.right {
+  border-width: 1px 1px 1px 0;
+}
+
+button.selected {
+  background-color: #aaF;
+  color: #fff;
 }
 
 .autoplay {
