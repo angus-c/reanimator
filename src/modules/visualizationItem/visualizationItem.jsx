@@ -29,7 +29,6 @@ class VisualizationItem extends React.Component {
             𝑓
           </button>
         </span>
-        <div className='buffer'></div>
         <Animation
           {...other}
           className="animation"

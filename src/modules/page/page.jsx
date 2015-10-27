@@ -36,8 +36,6 @@ class Container extends React.Component {
         <div className='controls'>
           <button className={autoPlayButtonClass} onClick={e => this._play(e)}>AutoPlay</button>
           <button className={manualButtonClass} onClick={e => this._manual(e)}>Manual</button>
-          <div className='buffer'></div>
-          <div className='buffer'></div>
           <input
             className='slider'
             max={1}

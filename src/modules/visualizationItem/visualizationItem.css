@@ -1,9 +1,9 @@
 .animation {
-  padding: 0 25px 0 25px
+  /*padding: 0 25px 0 25px*/
 }
 
 .animationLabel {
-  flex: 4;
+  flex: 3;
   vertical-align: middle;
 }
 
@@ -26,7 +26,7 @@ button.selected {
 
 .visualizationItem {
   display: flex;
-  flex: 18;
   flex-direction: row;
-  height: 2em
+  height: 2em;
+  margin-left: 10px;
 }

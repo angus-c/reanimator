@@ -29,7 +29,7 @@ class Animation extends React.Component {
   componentDidMount() {
     const { duration, easing } = this.props;
     // TODO: derive padding
-    this.animationWidth = React.findDOMNode(this.refs.animationPath).clientWidth - 30;
+    this.animationWidth = React.findDOMNode(this.refs.animationPath).clientWidth - 15;
     this.startTime = Date.now();
     this._startAnimation(easing, duration);
   }
@@ -39,6 +39,7 @@ class Animation extends React.Component {
     if (autoPlay) {
       this._startAnimation(easing, duration);
     } else {
+      console.log(elapsed, this.animationWidth);
       this.setState({left: this.animationWidth * this.props.easing(elapsed)});
     }
   }
