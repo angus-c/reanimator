@@ -20,6 +20,7 @@ class VisualizationItem extends React.Component {
       classnames('formula', {'selected': selected});
     return (
       <li className="visualizationItem" key={fn.name}>
+        <div className='smallBuffer'></div>
         <span className="animationLabel">
           {fn.name}
           <button
@@ -29,13 +30,14 @@ class VisualizationItem extends React.Component {
             𝑓
           </button>
         </span>
+        <div className='smallBuffer'></div>
         <Animation
           {...other}
           className="animation"
           easing={fn.value}
           key={fn.name}
         />
-        <div className='buffer'></div>
+      <div className='bigBuffer'></div>
       </li>
     );
   }

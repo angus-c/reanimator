@@ -3,7 +3,7 @@
 }
 
 .animationLabel {
-  flex: 3;
+  flex: 6;
   vertical-align: middle;
 }
 
@@ -20,13 +20,9 @@ button.selected {
   color: #fff;
 }
 
-.buffer {
-  flex: 1;
-}
-
 .visualizationItem {
   display: flex;
   flex-direction: row;
   height: 2em;
-  margin-left: 10px;
+  /*margin-left: 10px;*/
 }

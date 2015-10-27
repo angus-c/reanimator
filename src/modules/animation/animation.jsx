@@ -3,6 +3,8 @@ import {Tweener} from '../../lib/tweenState';
 
 import './animation.css';
 
+const BALL_SIZE = 8;
+
 class Animation extends React.Component {
   constructor(props) {
     super(props);
@@ -29,7 +31,7 @@ class Animation extends React.Component {
   componentDidMount() {
     const { duration, easing } = this.props;
     // TODO: derive padding
-    this.animationWidth = React.findDOMNode(this.refs.animationPath).clientWidth - 15;
+    this.animationWidth = React.findDOMNode(this.refs.animationPath).clientWidth - 2.5 * BALL_SIZE;
     this.startTime = Date.now();
     this._startAnimation(easing, duration);
   }
@@ -66,7 +68,7 @@ class Animation extends React.Component {
   _renderFormula() {
     return (
       <svg className='animation' ref="animationPath">
-        <circle cx={this.state.left} cy="15" fill="blue" r="10" />
+        <circle cx={this.state.left} cy="15" fill="blue" r={BALL_SIZE} />
       </svg>
     );
   }

@@ -126,6 +126,7 @@
 	        _react2['default'].createElement(
 	          'div',
 	          { className: 'controls' },
+	          _react2['default'].createElement('div', { className: 'smallBuffer' }),
 	          _react2['default'].createElement(
 	            'button',
 	            { className: autoPlayButtonClass, onClick: function (e) {
@@ -140,6 +141,7 @@
 	              } },
 	            'Manual'
 	          ),
+	          _react2['default'].createElement('div', { className: 'smallBuffer' }),
 	          _react2['default'].createElement('input', {
 	            className: 'slider',
 	            max: 1,
@@ -151,7 +153,7 @@
 	            type: 'range',
 	            value: this.state.elapsed
 	          }),
-	          _react2['default'].createElement('div', { className: 'buffer' })
+	          _react2['default'].createElement('div', { className: 'bigBuffer' })
 	        ),
 	        _react2['default'].createElement(_visualizationVisualizationJsx2['default'], {
 	          autoPlay: this.state.autoPlay,
@@ -27108,6 +27110,7 @@
 	      return _react2['default'].createElement(
 	        'li',
 	        { className: 'visualizationItem', key: fn.name },
+	        _react2['default'].createElement('div', { className: 'smallBuffer' }),
 	        _react2['default'].createElement(
 	          'span',
 	          { className: 'animationLabel' },
@@ -27123,12 +27126,13 @@
 	            '𝑓'
 	          )
 	        ),
+	        _react2['default'].createElement('div', { className: 'smallBuffer' }),
 	        _react2['default'].createElement(_animationAnimationJsx2['default'], _extends({}, other, {
 	          className: 'animation',
 	          easing: fn.value,
 	          key: fn.name
 	        })),
-	        _react2['default'].createElement('div', { className: 'buffer' })
+	        _react2['default'].createElement('div', { className: 'bigBuffer' })
 	      );
 	    }
 	  }, {
@@ -27179,6 +27183,8 @@
 
 	__webpack_require__(255);
 
+	var BALL_SIZE = 8;
+
 	var Animation = (function (_React$Component) {
 	  _inherits(Animation, _React$Component);
 
@@ -27199,7 +27205,7 @@
 	      var easing = _props.easing;
 
 	      // TODO: derive padding
-	      this.animationWidth = _react2['default'].findDOMNode(this.refs.animationPath).clientWidth - 15;
+	      this.animationWidth = _react2['default'].findDOMNode(this.refs.animationPath).clientWidth - 2.5 * BALL_SIZE;
 	      this.startTime = Date.now();
 	      this._startAnimation(easing, duration);
 	    }
@@ -27245,7 +27251,7 @@
 	      return _react2['default'].createElement(
 	        'svg',
 	        { className: 'animation', ref: 'animationPath' },
-	        _react2['default'].createElement('circle', { cx: this.state.left, cy: '15', fill: 'blue', r: '10' })
+	        _react2['default'].createElement('circle', { cx: this.state.left, cy: '15', fill: 'blue', r: BALL_SIZE })
 	      );
 	    }
 	  }, {
@@ -27326,7 +27332,7 @@
 
 
 	// module
-	exports.push([module.id, ".animation {\n  flex: 18;\n  padding-left: 10px;\n  margin-left: -10px;\n  /*margin-right: -10px;*/\n}\n", ""]);
+	exports.push([module.id, ".animation {\n  flex: 18;\n  padding-left: 10px;\n  /*margin-left: -10px;*/\n  /*padding-right: 10px;\n  margin-right: -10px;*/\n  /*margin-right: -10px;*/\n}\n", ""]);
 
 	// exports
 
@@ -27366,7 +27372,7 @@
 
 
 	// module
-	exports.push([module.id, ".animation {\n  /*padding: 0 25px 0 25px*/\n}\n\n.animationLabel {\n  flex: 3;\n  vertical-align: middle;\n}\n\nbutton.formula {\n  background-color: #f0f8ff;\n  border: 1px solid black;\n  margin-left: 4px;\n  outline: none;\n  vertical-align: top;\n}\n\nbutton.selected {\n  background-color: #aaf;\n  color: #fff;\n}\n\n.buffer {\n  flex: 1;\n}\n\n.visualizationItem {\n  display: flex;\n  flex-direction: row;\n  height: 2em;\n  margin-left: 10px;\n}\n", ""]);
+	exports.push([module.id, ".animation {\n  /*padding: 0 25px 0 25px*/\n}\n\n.animationLabel {\n  flex: 6;\n  vertical-align: middle;\n}\n\nbutton.formula {\n  background-color: #f0f8ff;\n  border: 1px solid black;\n  margin-left: 4px;\n  outline: none;\n  vertical-align: top;\n}\n\nbutton.selected {\n  background-color: #aaf;\n  color: #fff;\n}\n\n.visualizationItem {\n  display: flex;\n  flex-direction: row;\n  height: 2em;\n  /*margin-left: 10px;*/\n}\n", ""]);
 
 	// exports
 
@@ -27446,7 +27452,7 @@
 
 
 	// module
-	exports.push([module.id, ".page {\n  display: flex;\n  flex-direction: column;\n}\n\n.controls {\n  display: flex;\n  flex-direction: row;\n}\n\n.buffer {\n  flex: 1;\n  opacity: 0;\n}\n\nbutton.mode {\n  background-color: #f0f8ff;\n  border: solid black;\n  color: #000;\n  display: block;\n  outline: 0;\n  padding: 0;\n}\n\nbutton.left {\n  border-width: 1px 0 1px 1px;\n}\n\nbutton.right {\n  border-width: 1px 1px 1px 0;\n}\n\nbutton.selected {\n  background-color: #aaF;\n  color: #fff;\n}\n\n.autoplay {\n  flex: 1.5;\n}\n\n.manual {\n  flex: 1.5;\n}\n\n.slider {\n  flex: 18;\n}\n", ""]);
+	exports.push([module.id, ".page {\n  display: flex;\n  flex-direction: column;\n}\n\n.controls {\n  display: flex;\n  flex-direction: row;\n}\n\nbutton.mode {\n  background-color: #f0f8ff;\n  border: solid black;\n  color: #000;\n  display: block;\n  outline: 0;\n  padding: 0;\n}\n\nbutton.left {\n  border-width: 1px 0 1px 1px;\n}\n\nbutton.right {\n  border-width: 1px 1px 1px 0;\n}\n\nbutton.selected {\n  background-color: #aaF;\n  color: #fff;\n}\n\n.autoplay {\n  flex: 3;\n}\n\n.manual {\n  flex: 3;\n}\n\n.slider {\n  flex: 18;\n}\n", ""]);
 
 	// exports
 

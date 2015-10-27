@@ -34,8 +34,10 @@ class Container extends React.Component {
     return (
       <div className='page' key={this.state.animationCount}>
         <div className='controls'>
+          <div className='smallBuffer'></div>
           <button className={autoPlayButtonClass} onClick={e => this._play(e)}>AutoPlay</button>
           <button className={manualButtonClass} onClick={e => this._manual(e)}>Manual</button>
+          <div className='smallBuffer'></div>
           <input
             className='slider'
             max={1}
@@ -45,7 +47,7 @@ class Container extends React.Component {
             type='range'
             value={this.state.elapsed}
           />
-          <div className='buffer'></div>
+        <div className='bigBuffer'></div>
         </div>
         <Visualization
           autoPlay = {this.state.autoPlay}

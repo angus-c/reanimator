@@ -5,14 +5,17 @@ body {
   font-size: 14pt;
 }
 
-button.formula {
-  background-color: #f0f8ff;
-  border: 1px solid;
-  margin-left: 4px;
-  outline: none;
-  vertical-align: top;
+.smallBuffer {
+  flex: 0.4;
+  opacity: 0;
 }
 
-button.selected {
-  background-color: #faa;
+.mediumBuffer {
+  flex: 1;
+  opacity: 0;
+}
+
+.bigBuffer {
+  flex: 8;
+  opacity: 0;
 }
