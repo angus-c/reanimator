@@ -42,7 +42,9 @@
   "dependencies": {
     "babel-eslint": "^4.0.5",
     "classnames": "^2.2.0",
+    "d3": "^3.5.6",
     "event-emitter": "^0.3.3",
+    "function-plot": "^1.13.0",
     "function-to-string": "^0.2.0",
     "react": "^0.13.3",
     "tween-functions": "^1.0.2"

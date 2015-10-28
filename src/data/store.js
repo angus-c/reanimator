@@ -4,14 +4,13 @@ import functionString from 'function-to-string';
 import sanitize from '../lib/sanitize'
 import tweenFunctions from '../lib/simplifiedEasings';
 
-// const {linear, easeInQuad, easeOutQuad, easeInOutElastic, easeOutBounce, easeInCirc} = tweenFunctions;
 const {linear, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic} = tweenFunctions;
 const DEFAULT_EASINGS = {linear, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic};
 
 const store = {
   state: {
     easings: DEFAULT_EASINGS,
-    selectedEasingName: 'linear',
+    selectedEasingName: 'easeInQuad',
     tweenFunctions
   },
 
@@ -27,7 +26,7 @@ const store = {
   setSource(easings, name, src) {
     try {
       easings[name] = Function(...['t'].concat(src));
-    } catch(e) {
+    } catch (e) {
       easings[name].syntaxError = true;
     }
     easings[name].src = src;

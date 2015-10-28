@@ -37,7 +37,6 @@ class VisualizationItem extends React.Component {
           easing={fn.value}
           key={fn.name}
         />
-      <div className='bigBuffer'></div>
       </li>
     );
   }

@@ -1,7 +1,17 @@
+.visualization {
+  display: flex;
+  flex-direction: row;
+}
+
 .visualizationList {
   display: flex;
-  flex: 1;
+  flex: 25;
   flex-direction: column;
   padding: 0;
   width: 100%;
+}
+
+.plot {
+  flex: 8;
+  height: 100%;
 }
