@@ -27014,7 +27014,9 @@
 	            }));
 	          })
 	        ),
-	        _react2['default'].createElement(_curveCurveJsx2['default'], { className: 'plot', easing: easings[selectedEasingName] })
+	        _react2['default'].createElement('div', { className: 'mediumBuffer' }),
+	        _react2['default'].createElement(_curveCurveJsx2['default'], { easing: easings[selectedEasingName] }),
+	        _react2['default'].createElement('div', { className: 'mediumBuffer' })
 	      );
 	    }
 	  }], [{
@@ -27137,18 +27139,22 @@
 
 	var _d32 = _interopRequireDefault(_d3);
 
+	//  TODO: replace hard coded dimensions with derived values
+	//  TODO: feint border
+	var DATA_POINTS = 200;
+
 	var add = function add(selector, fn) {
 	  var lineFunction = _d32['default'].svg.line().x(function (i) {
 	    return i;
 	  }).y(function (i) {
-	    return fn(i);
+	    return DATA_POINTS * fn(i / DATA_POINTS);
 	  }).interpolate('linear');
 
-	  var svgContainer = _d32['default'].select(selector).append('svg');
+	  var svgContainer = _d32['default'].select(selector).append('svg').attr('width', '200px');
 
-	  svgContainer.append('path').attr('d', lineFunction([].concat(_toConsumableArray(new Array(1000))).map(function (_, i) {
+	  svgContainer.append('path').attr('d', lineFunction([].concat(_toConsumableArray(new Array(DATA_POINTS))).map(function (_, i) {
 	    return i;
-	  }))).attr('stroke', 'blue').attr('stroke-width', 2).attr('fill', 'none');
+	  }))).attr('stroke', 'blue').attr('stroke-width', 4).attr('fill', 'none');
 	};
 
 	exports.add = add;
@@ -27156,12 +27162,12 @@
 	  var lineFunction = _d32['default'].svg.line().x(function (i) {
 	    return i;
 	  }).y(function (i) {
-	    return fn(i);
+	    return DATA_POINTS * fn(i / DATA_POINTS);
 	  }).interpolate('linear');
 
 	  var svgContainer = _d32['default'].select(selector).transition();
 
-	  svgContainer.select('path').attr('d', lineFunction([].concat(_toConsumableArray(new Array(1000))).map(function (_, i) {
+	  svgContainer.select('path').attr('d', lineFunction([].concat(_toConsumableArray(new Array(DATA_POINTS))).map(function (_, i) {
 	    return i;
 	  })));
 	};
@@ -36711,7 +36717,7 @@
 
 
 	// module
-	exports.push([module.id, "\n", ""]);
+	exports.push([module.id, ".curve {\n  flex: 6;\n  height: 100%;\n}\n", ""]);
 
 	// exports
 
@@ -37083,7 +37089,7 @@
 
 
 	// module
-	exports.push([module.id, ".visualization {\n  display: flex;\n  flex-direction: row;\n}\n\n.visualizationList {\n  display: flex;\n  flex: 25;\n  flex-direction: column;\n  padding: 0;\n  width: 100%;\n}\n\n.plot {\n  flex: 8;\n  height: 100%;\n}\n", ""]);
+	exports.push([module.id, ".visualization {\n  display: flex;\n  flex-direction: row;\n}\n\n.visualizationList {\n  display: flex;\n  flex: 25;\n  flex-direction: column;\n  padding: 0;\n  width: 100%;\n}\n", ""]);
 
 	// exports
 

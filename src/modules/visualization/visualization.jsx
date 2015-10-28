@@ -27,7 +27,9 @@ class Visualization extends React.Component {
             />
           ))}
         </ul>
-        <Curve className='plot' easing={easings[selectedEasingName]} />
+        <div className='mediumBuffer'></div>
+        <Curve easing={easings[selectedEasingName]} />
+        <div className='mediumBuffer'></div>
       </div>
     );
   }

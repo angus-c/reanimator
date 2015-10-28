@@ -47,7 +47,7 @@ class Container extends React.Component {
             type='range'
             value={this.state.elapsed}
           />
-        <div className='bigBuffer'></div>
+          <div className='bigBuffer'></div>
         </div>
         <Visualization
           autoPlay = {this.state.autoPlay}
