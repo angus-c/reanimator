@@ -36717,7 +36717,7 @@
 
 
 	// module
-	exports.push([module.id, ".curve {\n  flex: 6;\n  height: 100%;\n}\n", ""]);
+	exports.push([module.id, ".curve {\n  flex: 6;\n  height: 100%;\n  margin: 1em 0\n}\n", ""]);
 
 	// exports
 
