@@ -5,8 +5,13 @@
 
 .visualizationList {
   display: flex;
-  flex: 25;
+  flex: 27;
   flex-direction: column;
   padding: 0;
   width: 100%;
 }
+
+.graphic {
+  flex: 6;
+}
+  

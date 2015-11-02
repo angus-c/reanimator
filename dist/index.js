@@ -25980,8 +25980,7 @@
 	          height: 200,
 	          width: 200,
 	          thickness: 4
-	        }),
-	        _react2['default'].createElement('div', { className: 'mediumBuffer' })
+	        })
 	      );
 	    }
 	  }], [{
@@ -35868,7 +35867,7 @@
 
 	      // TODO: derive padding
 	      // TODO: derive value of Plot width insread of subtracting 150
-	      this.animationWidth = this.refs.animationPath.clientWidth - 2.5 * BALL_SIZE - 150;
+	      this.animationWidth = this.refs.animationPath.clientWidth - 2.5 * BALL_SIZE;
 	      this.startTime = Date.now();
 	      this._startAnimation(easing, duration);
 	    }
@@ -35995,7 +35994,7 @@
 
 
 	// module
-	exports.push([module.id, ".animation {\n  flex: 18;\n  padding-left: 10px;\n  /*margin-left: -10px;*/\n  /*padding-right: 10px;\n  margin-right: -10px;*/\n  /*margin-right: -10px;*/\n}\n", ""]);
+	exports.push([module.id, ".animation {\n  flex: 20;\n  padding-left: 10px;\n  /*margin-left: -10px;*/\n  /*padding-right: 10px;\n  margin-right: -10px;*/\n  /*margin-right: -10px;*/\n}\n", ""]);
 
 	// exports
 
@@ -36075,7 +36074,7 @@
 
 
 	// module
-	exports.push([module.id, ".visualization {\n  display: flex;\n  flex-direction: row;\n}\n\n.visualizationList {\n  display: flex;\n  flex: 25;\n  flex-direction: column;\n  padding: 0;\n  width: 100%;\n}\n", ""]);
+	exports.push([module.id, ".visualization {\n  display: flex;\n  flex-direction: row;\n}\n\n.visualizationList {\n  display: flex;\n  flex: 27;\n  flex-direction: column;\n  padding: 0;\n  width: 100%;\n}\n\n.graphic {\n  flex: 6;\n}\n  \n", ""]);
 
 	// exports
 
@@ -36115,7 +36114,7 @@
 
 
 	// module
-	exports.push([module.id, ".page {\n  display: flex;\n  flex-direction: column;\n}\n\n.controls {\n  display: flex;\n  flex-direction: row;\n}\n\nbutton.mode {\n  background-color: #f0f8ff;\n  border: solid black;\n  color: #000;\n  display: block;\n  outline: 0;\n  padding: 0;\n}\n\nbutton.left {\n  border-width: 1px 0 1px 1px;\n}\n\nbutton.right {\n  border-width: 1px 1px 1px 0;\n}\n\nbutton.selected {\n  background-color: #aaF;\n  color: #fff;\n}\n\n.autoplay {\n  flex: 3;\n}\n\n.manual {\n  flex: 3;\n}\n\n.slider {\n  flex: 18;\n}\n", ""]);
+	exports.push([module.id, ".page {\n  display: flex;\n  flex-direction: column;\n}\n\n.controls {\n  display: flex;\n  flex-direction: row;\n}\n\nbutton.mode {\n  background-color: #f0f8ff;\n  border: solid black;\n  color: #000;\n  display: block;\n  outline: 0;\n  padding: 0;\n}\n\nbutton.left {\n  border-width: 1px 0 1px 1px;\n}\n\nbutton.right {\n  border-width: 1px 1px 1px 0;\n}\n\nbutton.selected {\n  background-color: #aaF;\n  color: #fff;\n}\n\n.autoplay {\n  flex: 3;\n}\n\n.manual {\n  flex: 3;\n}\n\n.slider {\n  flex: 20;\n}\n", ""]);
 
 	// exports
 

@@ -28,14 +28,13 @@ class Visualization extends React.Component {
           ))}
         </ul>
         <div className='mediumBuffer'></div>
-          <Plot
-            className='graphic'
-            fn={easings[selectedEasingName]}
-            height={200}
-            width={200}
-            thickness={4}
-          />
-        <div className='mediumBuffer'></div>
+        <Plot
+          className='graphic'
+          fn={easings[selectedEasingName]}
+          height={200}
+          width={200}
+          thickness={4}
+        />
       </div>
     );
   }

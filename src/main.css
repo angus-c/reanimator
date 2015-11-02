@@ -16,6 +16,6 @@ body {
 }
 
 .bigBuffer {
-  flex: 8;
+  flex: 7;
   opacity: 0;
 }
