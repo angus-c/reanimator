@@ -31,9 +31,7 @@ class Animation extends React.Component {
 
   componentDidMount() {
     const { duration, easing } = this.props;
-    // TODO: derive padding
-    // TODO: derive value of Plot width insread of subtracting 150
-    this.animationWidth = this.refs.animationPath.clientWidth - 2.5 * BALL_SIZE - 150;
+    this.animationWidth = this.refs.animationPath.clientWidth - 2.5 * BALL_SIZE;
     this.startTime = Date.now();
     this._startAnimation(easing, duration);
   }
