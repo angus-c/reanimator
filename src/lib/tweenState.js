@@ -3,11 +3,9 @@
  */
 
 /* global requestAnimationFrame*/
-import easingTypes, {easeInOutQuad} from 'tween-functions';
 
 // TODO: we may want to support additive animation
 // (see http://ronnqvi.st/multiple-animations)
-const DEFAULT_EASING = easeInOutQuad;
 const DEFAULT_DURATION = 300;
 
 const Tweener = {
@@ -21,7 +19,7 @@ const Tweener = {
     const tweenKey = Date.now() * Math.random();
 
     const animation = {
-      easing: easing || DEFAULT_EASING,
+      easing: easing,
       duration: duration || DEFAULT_DURATION,
       delay: 0,
       beginValue: beginValue,
@@ -83,7 +81,4 @@ const Tweener = {
   }
 };
 
-export {
-  Tweener,
-  easingTypes
-};
+export default Tweener;

@@ -1,5 +1,6 @@
 import React from 'react';
-import {Tweener} from '../../lib/tweenState';
+import ReactDOM from 'react-dom';
+import Tweener from '../../lib/tweenState';
 
 import './animation.css';
 
@@ -31,7 +32,8 @@ class Animation extends React.Component {
   componentDidMount() {
     const { duration, easing } = this.props;
     // TODO: derive padding
-    this.animationWidth = React.findDOMNode(this.refs.animationPath).clientWidth - 2.5 * BALL_SIZE;
+    // TODO: derive value of Plot width insread of subtracting 150
+    this.animationWidth = this.refs.animationPath.clientWidth - 2.5 * BALL_SIZE - 150;
     this.startTime = Date.now();
     this._startAnimation(easing, duration);
   }

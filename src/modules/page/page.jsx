@@ -1,6 +1,7 @@
-import {Tweener} from '../../lib/tweenState';
+import Tweener from '../../lib/tweenState';
 import classnames from 'classnames';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import Formula from '../formula/formula.jsx';
 import Visualization from '../visualization/visualization.jsx';
@@ -86,6 +87,6 @@ class Container extends React.Component {
   }
 }
 
-React.render(<Container/>, document.body);
+ReactDOM.render(<Container/>, document.querySelector('#container'));
 
 export default Container;

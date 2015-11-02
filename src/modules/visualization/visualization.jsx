@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Curve from '../curve/curve.jsx';
+// import Curve from '../curve/curve.jsx';
+import Plot from 'react-function-plot';
 import VisualizationItem from '../visualizationItem/visualizationItem.jsx';
 
 import './visualization.css';
@@ -8,8 +9,7 @@ import './visualization.css';
 class Visualization extends React.Component {
 
   static propTypes = {
-    easings: React.PropTypes.arrayOf(React.PropTypes.fn),
-    formula: React.PropTypes.fn,
+    easings: React.PropTypes.objectOf(React.PropTypes.fn),
     selectedEasingName: React.PropTypes.string
   }
 
@@ -21,14 +21,20 @@ class Visualization extends React.Component {
           {Object.keys(easings).map((key, i) => (
             <VisualizationItem
               {...other}
-              fn={{name: key, value: easings[key]}}
+              fnObj={{name: key, value: easings[key]}}
               key={i}
               selected={key == selectedEasingName}
             />
           ))}
         </ul>
         <div className='mediumBuffer'></div>
-        <Curve easing={easings[selectedEasingName]} />
+          <Plot
+            className='graphic'
+            fn={easings[selectedEasingName]}
+            height={200}
+            width={200}
+            thickness={4}
+          />
         <div className='mediumBuffer'></div>
       </div>
     );

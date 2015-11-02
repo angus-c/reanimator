@@ -10,19 +10,19 @@ import './visualizationItem.css';
 class VisualizationItem extends React.Component {
 
   static propTypes = {
-    fn: React.PropTypes.func,
+    fnObj: React.PropTypes.objectOf(React.PropTypes.fn),
     selected: React.PropTypes.bool
   }
 
   render() {
-    const {fn, selected, ...other} = this.props;
+    const {fnObj, selected, ...other} = this.props;
     const formulaButtonClass =
       classnames('formula', {'selected': selected});
     return (
-      <li className="visualizationItem" key={fn.name}>
+      <li className="visualizationItem" key={fnObj.name}>
         <div className='smallBuffer'></div>
         <span className="animationLabel">
-          {fn.name}
+          {fnObj.name}
           <button
             className={formulaButtonClass}
             onClick={() => this._select()}
@@ -34,15 +34,15 @@ class VisualizationItem extends React.Component {
         <Animation
           {...other}
           className="animation"
-          easing={fn.value}
-          key={fn.name}
+          easing={fnObj.value}
+          key={fnObj.name}
         />
       </li>
     );
   }
 
   _select() {
-    store.updateSelectedEasing(this.props.fn.name);
+    store.updateSelectedEasing(this.props.fnObj.name);
   }
 }
 
