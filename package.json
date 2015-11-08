@@ -47,6 +47,6 @@
     "function-to-string": "^0.2.0",
     "react": "^0.14.1",
     "react-dom": "^0.14.1",
-    "react-function-plot": "0.0.6"
+    "react-function-plot": "0.0.10"
   }
 }
