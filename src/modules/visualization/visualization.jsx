@@ -31,8 +31,6 @@ class Visualization extends React.Component {
         <Plot
           className='graphic'
           fn={easings[selectedEasingName]}
-          height={200}
-          width={200}
           thickness={4}
         />
       </div>
