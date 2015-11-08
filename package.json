@@ -1,6 +1,6 @@
 {
   "name": "easings-editor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "edit and vizualize easing formuale",
   "author": "Angus Croll",
   "main": "lib/index.js",
