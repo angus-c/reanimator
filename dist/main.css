@@ -1,0 +1,21 @@
+/* TODO: flex prefixes */
+
+body {
+  font-family: helvetica;
+  font-size: 14pt;
+}
+
+.smallBuffer {
+  flex: 0.5;
+  opacity: 0;
+}
+
+.mediumBuffer {
+  flex: 1;
+  opacity: 0;
+}
+
+.bigBuffer {
+  flex: 7;
+  opacity: 0;
+}
