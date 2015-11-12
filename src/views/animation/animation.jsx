@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Tweener from '../../lib/tweenState';
 
 import './animation.css';
@@ -41,7 +40,6 @@ class Animation extends React.Component {
     if (autoPlay) {
       this._startAnimation(easing, duration);
     } else {
-      console.log(elapsed, this.animationWidth);
       this.setState({left: this.animationWidth * this.props.easing(elapsed)});
     }
   }

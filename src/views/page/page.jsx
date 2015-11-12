@@ -41,6 +41,7 @@ class Container extends React.Component {
           <div className='smallBuffer'></div>
           <input
             className='slider'
+            disabled={this.state.autoPlay}
             max={1}
             min={0}
             onChange={(e) => this._elapsedChanged(e)}

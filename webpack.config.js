@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './src/modules/page/page.jsx',
+  entry: './src/views/page/page.jsx',
   output: {
     path: 'dist',
     filename: 'index.js'

@@ -1,6 +1,5 @@
 import React from 'react';
 
-// import Curve from '../curve/curve.jsx';
 import Plot from 'react-function-plot';
 import VisualizationItem from '../visualizationItem/visualizationItem.jsx';
 
